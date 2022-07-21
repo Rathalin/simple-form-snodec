@@ -16,7 +16,7 @@ VALUES(
 SET @salt_philip = UUID();
 INSERT INTO user_account(email, password_hash, password_salt)
 VALUES(
-    'phil@toolan.ie',
+    'philtoolan@gmail.com',
     SHA1(CONCAT(@salt_philip, 'pub')),
     @salt_philip
 );
@@ -25,7 +25,7 @@ VALUES(
 SET @salt_rita = UUID();
 INSERT INTO user_account(email, password_hash, password_salt)
 VALUES(
-    'rita@hainzl.at',
+    'rhainzl@hotmail.com',
     SHA1(CONCAT(@salt_rita, 'linz')),
     @salt_rita
 );

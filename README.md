@@ -14,6 +14,11 @@ For the REST server the snode.c framework was used. The frontend app was develop
 
 ### MariaDB setup
 
-### snode.c
+Scripts for creating and seeding the database can be found at `/database/scripts/`. These scripts can be executed by in the MariaDB shell. Start a terminal and navigate into the scripts folder with `cd database/scripts`. Start the shell by executing `sudo mariadb`. You can execute sql files by typing the command `source <script_to_execute.sql>`.
 
-### Vue3
+To create the database and the tables, execute the command `source create.sql`. `insert.sql` fills the tables with example data and `select.sql` executes example select statements.
+
+
+### snode.c setup
+
+### Vue3 setup

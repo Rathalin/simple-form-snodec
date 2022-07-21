@@ -1,4 +1,4 @@
-CREATE IF NOT EXISTS simple_form_snodec;
+CREATE DATABASE IF NOT EXISTS simple_form_snodec;
 USE simple_form_snodec;
 
 DROP TABLE IF EXISTS comment;
