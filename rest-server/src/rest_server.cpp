@@ -1,3 +1,4 @@
+#include "api_router.h"
 #include <database/mariadb/MariaDBClient.h>
 #include <express/legacy/in/WebApp.h>
 #include <express/middleware/JsonMiddleware.h>
@@ -53,18 +54,9 @@ int main(int argc, char* argv[])
         .flags = 0,
     };
     database::mariadb::MariaDBClient db { details };
-
     app.use(express::middleware::JsonMiddleware());
 
-    // JSON example
-    app.get("/api", [] APPLICATION(req, res) {
-        json arrayJson = { { { "email", "alois.dimpfelmoser@polizei.de" } },
-            { { "email", "seppl.schubert@gmx.com" } },
-            { { "email", "kasperl.schubert@gmx.com" } } };
-        // dump(4) = JSON to string with 4 spaces indentation
-        res.send(arrayJson.dump(4));
-    });
-
+    app.use("/api", createApiRouter(db));
     app.use(express::middleware::StaticMiddleware(configJson["frontend-app"]["path"]));
 
     app.listen(8080,

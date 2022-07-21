@@ -1,6 +1,25 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+// example login
+async function login() {
+  const response = await fetch("http://localhost:8080/api/login", {
+    method: 'post',
+    mode: 'cors',
+    body: JSON.stringify({
+      email: 'daniel@flockert.at',
+      password: 'rathalin',
+    })
+  })
+  const result = await response.json()
+  console.log(result)
+
+}
+
+onMounted(() => login())
+
 </script>
 
 <template>

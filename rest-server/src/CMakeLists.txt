@@ -7,5 +7,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(snodec COMPONENTS express db-mariadb net-in core-legacy)
 
-add_executable(rest-server rest_server.cpp)
+add_executable(rest-server rest_server.cpp api_router.cpp)
 target_link_libraries(rest-server PRIVATE snodec::express snodec::db-mariadb snodec::net-in snodec::core-legacy)
