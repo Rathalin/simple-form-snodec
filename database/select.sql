@@ -1,3 +1,5 @@
+USE simple_form_snodec;
+
 SELECT c.content 'Comment', th.title 'Thread', t.title 'Topic'
 FROM comment c 
 JOIN thread th 

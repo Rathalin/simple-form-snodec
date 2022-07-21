@@ -1,3 +1,6 @@
+-- Active: 1645874165834@@127.0.0.1@3306@simple_form_snodec
+USE simple_form_snodec;
+
 DELETE FROM comment;
 DELETE FROM thread;
 DELETE FROM topic;
@@ -34,7 +37,7 @@ VALUES(
 SET @salt_rita = UUID();
 INSERT INTO user_account(email, password_hash, password_salt)
 VALUES(
-    'sebastian@mayer.at',
+    'mayee.sebastian@gmail.com',
     SHA1(CONCAT(@salt_rita, 'ooe')),
     @salt_rita
 );
