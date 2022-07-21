@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
         res.send(arrayJson.dump(4));
     });
 
-    app.use(express::middleware::StaticMiddleware(configJson["mariadb"]["username"]));
+    app.use(express::middleware::StaticMiddleware(configJson["frontend-app"]["path"]));
 
     app.listen(8080,
         [](const express::legacy::in::WebApp::SocketAddress socketAddress,
