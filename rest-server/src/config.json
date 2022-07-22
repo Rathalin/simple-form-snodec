@@ -1,0 +1,10 @@
+{
+    "mariadb": {
+        "username": "rathalin",
+        "password": "rathalin",
+        "database": "simple_form_snodec"
+    },
+    "frontend-app": {
+        "path": "/home/rathalin/projects/simple-form-snodec/frontend-app/dist"
+    }
+}

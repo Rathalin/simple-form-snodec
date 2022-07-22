@@ -22,22 +22,25 @@ nlohmann::json parseConfigFile(const string& filePath)
         }
         myfile.close();
     } else {
-        throw invalid_argument("Unable to open file");
+        throw invalid_argument("Unable to open file '" + filePath + "'");
     }
     return json::parse(fileContent);
 }
 
 int main(int argc, char* argv[])
 {
-    json configJson;
+    json config;
     if (argc != 2) {
-        cout << "Missing argument 'path to secret.json'" << endl;
+        VLOG(0) << "Missing argument 'path to config.json'";
         return -1;
     }
     try {
-        configJson = parseConfigFile(argv[1]);
+        config = parseConfigFile(argv[1]);
     } catch (const invalid_argument& ex) {
-        cout << ex.what() << endl;
+        VLOG(0) << ex.what();
+        return -1;
+    } catch (nlohmann::detail::parse_error& ex) {
+        VLOG(0) << ex.what();
         return -1;
     }
 
@@ -46,9 +49,9 @@ int main(int argc, char* argv[])
 
     database::mariadb::MariaDBConnectionDetails details {
         .hostname = "localhost",
-        .username = configJson["mariadb"]["username"],
-        .password = configJson["mariadb"]["password"],
-        .database = configJson["mariadb"]["database"],
+        .username = config["mariadb"]["username"],
+        .password = config["mariadb"]["password"],
+        .database = config["mariadb"]["database"],
         .port = 3306,
         .socket = "/run/mysqld/mysqld.sock",
         .flags = 0,
@@ -57,16 +60,16 @@ int main(int argc, char* argv[])
     app.use(express::middleware::JsonMiddleware());
 
     app.use("/api", createApiRouter(db));
-    app.use(express::middleware::StaticMiddleware(configJson["frontend-app"]["path"]));
+    app.use(express::middleware::StaticMiddleware(config["frontend-app"]["path"]));
 
     app.listen(8080,
         [](const express::legacy::in::WebApp::SocketAddress socketAddress,
             int err) {
             if (err != 0) {
-                std::cerr << "Failed to listen on port " << 8080;
+                VLOG(0) << "Failed to listen on port " << 8080;
             } else {
-                std::cout << "simple-form-rest-server is listening on "
-                          << socketAddress.toString() << std::endl;
+                VLOG(0) << "simple-form-rest-server is listening on "
+                        << socketAddress.toString();
             }
         });
 

@@ -11,13 +11,6 @@
 using namespace std;
 using namespace nlohmann;
 
-std::string hashSha1(const std::string& str)
-{
-    SHA1 checksum;
-    checksum.update(str);
-    return checksum.final();
-}
-
 express::Router createApiRouter(database::mariadb::MariaDBClient& db)
 {
     express::Router apiRouter;
@@ -38,8 +31,7 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
                 }
             },
             [&res](const std::string& errorString, unsigned int errorNumber) -> void {
-                VLOG(0) << "Database error: " << errorString << " : " << errorNumber;
-                res.sendStatus(500);
+                handleDbError(res, errorString, errorNumber);
             });
     });
 
@@ -56,39 +48,38 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
                     [&req, &res, &db, &body](const MYSQL_ROW row) -> void {
                         if (row != nullptr) {
                             int count { stoi(row[0]) };
-                            if (count > 0) {
+                            if (count == 1) {
                                 db.query(
                                     "select password_hash, password_salt "
                                     "from user_account "
                                     "where email = '"
                                         + string { body["email"] } + "'",
-                                    [&req, &res, &db, &body](const MYSQL_ROW row) -> void {
+                                    [&res, &body](const MYSQL_ROW row) -> void {
                                         if (row != nullptr) {
                                             std::string dbPasswordHash { row[0] };
                                             std::string dbPasswordSalt { row[1] };
                                             std::string bodyPassword { body["password"] };
                                             // Check password
-                                            if (dbPasswordHash != hashSha1(dbPasswordSalt + bodyPassword)) {
-                                                cout << "Sending invalid password error" << endl;
-                                                res.status(401).send(json { { "error", "Invalid password" } }.dump(4));
-                                            } else {
-                                                cout << "Sending successful login" << endl;
+                                            if (dbPasswordHash == hashSha1(dbPasswordSalt + bodyPassword)) {
+                                                VLOG(0) << "Sending successful login";
                                                 res.send(json { { "success", "Successfully logged in" } }.dump(4));
+                                            } else {
+                                                VLOG(0) << "Sending invalid password error";
+                                                res.status(401).send(json { { "error", "Invalid password" } }.dump(4));
                                             }
                                         }
                                     },
                                     [&res](const std::string& errorString, unsigned int errorNumber) -> void {
-                                        VLOG(0) << "Database error: " << errorString << " : " << errorNumber;
-                                        res.sendStatus(500);
+                                        handleDbError(res, errorString, errorNumber);
                                     });
                             } else {
-                                res.status(400).send(json { { "error", "Email does not exist" } }.dump(4));
+                                VLOG(0) << "No user exists with the email '" << body["email"] << "'";
+                                res.status(404).send(json { { "error", "Email does not exist" } }.dump(4));
                             }
                         }
                     },
                     [&res](const std::string& errorString, unsigned int errorNumber) -> void {
-                        VLOG(0) << "Database error: " << errorString << " : " << errorNumber;
-                        res.sendStatus(500);
+                        handleDbError(res, errorString, errorNumber);
                     });
             },
             [&res]([[maybe_unused]] const std::string& key) -> void {
@@ -101,7 +92,7 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
         req.getAttribute<nlohmann::json>(
             [&res](nlohmann::json& body) -> void {
                 // Body is send by the client
-                cout << "Client send the json: " << body.dump(4) << endl;
+                VLOG(0) << "Client send the json: " << body.dump(4);
                 res.send(json { { "success", "Request was successful" } }.dump(4));
             },
             [&res]([[maybe_unused]] const std::string& key) -> void {
@@ -119,4 +110,17 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
         res.send(arrayJson.dump(4));
     });
     return apiRouter;
+}
+
+std::string hashSha1(const std::string& str)
+{
+    SHA1 checksum;
+    checksum.update(str);
+    return checksum.final();
+}
+
+void handleDbError(express::Response& res, const std::string& errorString, unsigned int errorNumber)
+{
+    VLOG(0) << "Database error: " << errorString << " : " << errorNumber;
+    res.sendStatus(500);
 }

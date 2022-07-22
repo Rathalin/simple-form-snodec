@@ -23,7 +23,7 @@ To create the database and the tables, execute the command `source create.sql`. 
 
 I would recommend to set the build path to `/build` besides the `/src` folder. In QtCreator the path can be set at **Projects > Build > CMake > Build directory**.
 
-The Server needs to load a configuration file `secrets.json`. To add the path to the file as a command line argument, go to **Projects > Run > Run > Command line arguments** and paste in the path to your `secrets.json`. The structure of the content can be found inside the `secrets.example.json`. Just copy the content into your `secrets.json` and change the values.
+The Server needs to load a configuration file `config.json`. To add the path to the file as a command line argument, go to **Projects > Run > Run > Command line arguments** and paste in the path to your config file. The structure of the content can be found inside the `config.example.json`. Just copy the content into your `config.json` and change the values.
 
 ### Vue3 setup
 
