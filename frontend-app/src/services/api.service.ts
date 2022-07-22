@@ -1,6 +1,7 @@
 export interface User {
     email: string
-    created_at: string
+    password_hash: string
+    password_salt: string
 }
 
 class ApiService {
