@@ -17,14 +17,13 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
 
     // Database example
     apiRouter.get("/users", [&db] APPLICATION(req, res) {
-        res.set("Access-Control-Allow-Origin", "*");
         json* usersJson = new json;
         db.query(
-            "select email, password_hash, password_salt "
+            "select email, password_hash, password_salt, created_at "
             "from user_account",
-            [&req, &res, usersJson](const MYSQL_ROW row) -> void {
+            [&res, usersJson](const MYSQL_ROW row) -> void {
                 if (row != nullptr) {
-                    usersJson->push_back({ { "email", row[0] }, { "password_hash", row[1] }, { "password_salt", row[2] } });
+                    usersJson->push_back({ { "email", row[0] }, { "password_hash", row[1] }, { "password_salt", row[2] }, { "created_at", row[3] } });
                 } else {
                     res.send(usersJson->dump(4));
                     delete usersJson;
@@ -37,7 +36,6 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
 
     // Check passsword hash example
     apiRouter.post("/login", [&db] APPLICATION(req, res) {
-        res.set("Access-Control-Allow-Origin", "*");
         req.getAttribute<nlohmann::json>(
             [&req, &res, &db](nlohmann::json& body) -> void {
                 db.query(
@@ -88,7 +86,6 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
     });
 
     apiRouter.post("/example", [] APPLICATION(req, res) {
-        res.set("Access-Control-Allow-Origin", "*");
         req.getAttribute<nlohmann::json>(
             [&res](nlohmann::json& body) -> void {
                 // Body is send by the client
@@ -102,7 +99,6 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
 
     // JSON as response example
     apiRouter.get("/example", [] APPLICATION(req, res) {
-        res.set("Access-Control-Allow-Origin", "*");
         json arrayJson = { { { "email", "alois.dimpfelmoser@polizei.de" } },
             { { "email", "seppl.schubert@gmx.com" } },
             { { "email", "kasperl.schubert@gmx.com" } } };
