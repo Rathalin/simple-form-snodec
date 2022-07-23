@@ -57,6 +57,13 @@ int main(int argc, char* argv[])
         .flags = 0,
     };
     database::mariadb::MariaDBClient db { details };
+
+    app.use([] MIDDLEWARE(req, res, next) {
+        // Enable CORS
+        res.set("Access-Control-Allow-Origin", "*");
+        res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        next();
+    });
     app.use(express::middleware::JsonMiddleware());
 
     app.use("/api", createApiRouter(db));
