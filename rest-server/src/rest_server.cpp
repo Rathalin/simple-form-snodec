@@ -36,6 +36,7 @@ int main(int argc, char* argv[])
     }
     try {
         config = parseConfigFile(argv[1]);
+        VLOG(0) << "Successfully parsed configuration '" << argv[1] << "'";
     } catch (const invalid_argument& ex) {
         VLOG(0) << ex.what();
         return -1;
