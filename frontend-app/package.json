@@ -10,6 +10,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "pinia": "^2.0.16",
+    "primeflex": "^3.2.1",
     "sass": "^1.53.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2"

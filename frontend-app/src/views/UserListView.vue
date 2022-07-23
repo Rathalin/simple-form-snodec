@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { apiService, type User } from '@/services/api.service'
+import { mockApiService } from '@/services/mock-api.service'
+import type { User } from '@/types/User'
 import { onMounted, ref } from 'vue'
 
 const users = ref<User[]>([])
 
 onMounted(async () => {
-  users.value = await apiService.getUsers()
+  users.value = await mockApiService.getUsers()
 })
 </script>
 
 <template>
-  <div>
+  <main class="container">
     <h1>Registered users</h1>
     <ol>
-      <li v-for="user of users" :key="user.email">{{ user.email}}</li>
+      <li v-for="user of users" :key="user.id">{{ user.email }}</li>
     </ol>
-  </div>
+  </main>
 </template>
 
 <style scoped lang="scss">
