@@ -1,0 +1,34 @@
+.uppercase {
+  text-transform: uppercase;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.gap-1em {
+  gap: 1em;
+}
+
+.gap-2em {
+  gap: 2em;
+}
+
+.card {
+  background-color: var(--c-second);
+  border-radius: var(--border-radius-m);
+  padding: 1.5em 2em;
+  transition-property: background-color;
+  transition-duration: var(--duration-short);
+  box-shadow: var(--shadow-prime);
+
+  &:hover {
+    background-color: var(--c-second-acc-1);
+  }
+}

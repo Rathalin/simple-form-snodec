@@ -14,7 +14,7 @@ onMounted(async () => {
   <main class="container">
     <h1>Registered users</h1>
     <ol>
-      <li v-for="user of users" :key="user.id">{{ user.email }}</li>
+      <li v-for="user of users" :key="user.uuid">{{ user.email }}</li>
     </ol>
   </main>
 </template>

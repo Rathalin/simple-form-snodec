@@ -19,11 +19,11 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
     apiRouter.get("/users", [&db] APPLICATION(req, res) {
         json* usersJson = new json;
         db.query(
-            "select email, password_hash, password_salt, created_at "
+            "select uuid, email, created_at "
             "from user_account",
             [&res, usersJson](const MYSQL_ROW row) -> void {
                 if (row != nullptr) {
-                    usersJson->push_back({ { "email", row[0] }, { "password_hash", row[1] }, { "password_salt", row[2] }, { "created_at", row[3] } });
+                    usersJson->push_back({ { "uuid", row[0] }, { "email", row[1] }, { "created_at", row[2] } });
                 } else {
                     res.send(usersJson->dump(4));
                     delete usersJson;

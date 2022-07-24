@@ -5,11 +5,13 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
     <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/registered-users">Display Users</RouterLink>
-      <RouterLink to="/help">Help</RouterLink>
+      <RouterLink to="/">
+        <button class="round" type="button">Home</button>
+      </RouterLink>
+      <RouterLink to="/registered-users">
+        <button class="round" type="button">Registered Users</button>
+      </RouterLink>
     </nav>
   </header>
 
@@ -19,35 +21,26 @@ import { RouterLink, RouterView } from 'vue-router'
 <style scoped lang="scss">
 header {
   line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 
 nav {
-  width: 100%;
-  text-align: center;
-  margin-top: 2rem;
-}
+  padding: 0.5em;
+  box-shadow: var(--shadow-prime);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1em;
+  background-color : var(--c-back-acc-1);
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+  a {
+    &:first-of-type {
+      border-left: none;
+    }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
+    &:not(.router-link-exact-active) button {
+      background-color: transparent;
+      color: var(--c-text-prime);
+    }
+  }
 }
 </style>

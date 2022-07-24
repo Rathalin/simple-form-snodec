@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Topic } from '@/types/Topic'
-import { computed } from '@vue/reactivity'
+import type { Thread } from '@/types/Thread'
+import { computed } from '@vue/reactivity';
 
-const { topic } = defineProps<{
-  topic: Topic
+const { thread } = defineProps<{
+  thread: Thread,
 }>()
 
 const created_at = computed(() => {
-  return new Date(topic.created_at).toLocaleString('en-US', {
+  return new Date(thread.created_at).toLocaleString('en-US', {
     day: '2-digit',
     month: 'numeric',
     year: 'numeric',
@@ -18,12 +18,11 @@ const created_at = computed(() => {
 </script>
 
 <template>
-  <RouterLink class="no-link card" :to="`/topic/${topic.uuid}`">
+  <RouterLink class="no-link card" :to="`/thread/${thread.uuid}`">
     <div class="item">
-      <h2 class="title">{{ topic.title }}</h2>
-      <div class="description">{{ topic.description }}</div>
+      <h2 class="title">{{ thread.title }}</h2>
       <div class="subinfo">
-        <RouterLink to="#" class="email">{{ topic.user.email }}</RouterLink>
+        <RouterLink to="#" class="email">{{ thread.user.email }}</RouterLink>
         <span> at </span>
         <span class="date">{{ created_at }}</span>
       </div>

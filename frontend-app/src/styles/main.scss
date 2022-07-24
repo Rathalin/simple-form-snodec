@@ -1,0 +1,138 @@
+@use './variables.scss';
+@use './utilities.scss';
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: inherit;
+  color: inherit;
+  position: relative;
+  font-weight: normal;
+  line-height: 1.7rem;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: var(--font-prime);
+  font-weight: var(--font-weight-normal);
+  color: var(--c-text-prime);
+  background: var(--c-back);
+  transition: color 0.5s, background-color 0.5s;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+main.container {
+  max-width: 120ch;
+  margin-inline: auto;
+  padding: 2rem;
+}
+
+a:not(.link) {
+  text-decoration: none;
+}
+
+button {
+  outline: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.8em;
+  border: transparent solid 1px;
+  transition-property: border-color, background-color, color;
+  transition-duration: var(--duration-normal);
+  border-radius: var(--border-radius-s);
+  color: var(--c-text-dark);
+  background-color: var(--c-prime);
+  font-weight: var(--font-weight-normal);
+
+  &:hover:not([disabled]) {
+    cursor: pointer;
+    background-color: var(--c-prime-acc-1);
+  }
+
+  &:hover,
+  &:focus-visible {
+    &:not([disabled]) {
+      background-color: var(--c-prime-acc-1);
+      cursor: pointer;
+    }
+  }
+
+  &.round {
+    border-radius: 100rem;
+    padding: 0.2rem 1rem;
+  }
+
+  &.no-outline {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 0em;
+    margin: 0em;
+    text-transform: none;
+    font-size: inherit;
+    color: var(--c-text-prime);
+
+    &.second {
+      color: var(--c-text-dark);
+      background-color: var(--c-second);
+
+      &:hover {
+        &:not([disabled]) {
+          background-color: var(--c-second-acc-1);
+        }
+      }
+    }
+  }
+}
+
+button label {
+  padding-left: 0.2em;
+}
+
+input,
+textarea {
+  padding: 0.8em 0.8em;
+  transition-property: border-color, background-color, color;
+  transition-duration: var(--duration-normal);
+  border: transparent solid 1px;
+  border-radius: var(--border-radius-s);
+  background-color: var(--c-second);
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: var(--c-second-acc-2);
+  }
+
+  &::placeholder {
+    color: var(--c-text-second);
+  }
+}
+
+input,
+button,
+label {
+  font-size: initial;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}

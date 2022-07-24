@@ -21,12 +21,12 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/topic/:id',
+      path: '/topic/:uuid',
       name: 'topic',
       component: TopicView,
     },
     {
-      path: '/thread/:id',
+      path: '/thread/:uuid',
       name: 'thread',
       component: ThreadView,
     },
@@ -38,11 +38,6 @@ const router = createRouter({
       path: '/registered-users',
       name: 'registered-users',
       component: UserListView,
-    },
-    {
-      path: '/help',
-      name: 'help',
-      component: () => import('@/views/VueHelpView.vue'),
     },
   ]
 })
