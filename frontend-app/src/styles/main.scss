@@ -18,12 +18,8 @@
   line-height: 1.7rem;
 }
 
-html,
 body {
-  height: 100%;
-}
-
-body {
+  min-height: 100vh;
   box-sizing: border-box;
   font-family: var(--font-prime);
   font-weight: var(--font-weight-normal);
@@ -34,6 +30,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main.container {

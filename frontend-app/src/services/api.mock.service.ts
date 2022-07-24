@@ -3,7 +3,7 @@ import type { Thread } from "@/types/Thread"
 import type { Topic } from "@/types/Topic"
 import type { User } from "@/types/User"
 
-class MockApiService {
+class ApiMockService {
 
   private readonly users: User[] = [
     {
@@ -74,28 +74,28 @@ class MockApiService {
       uuid: '1',
       content: '????',
       created_at: '2022-07-23 20:20:14',
-      thread: this.threads[0],
+      thread: this.threads[1],
       user: this.users[2],
     },
     {
       uuid: '2',
       content: 'Yeah, wtf dude',
       created_at: '2022-07-23 20:20:39',
-      thread: this.threads[0],
+      thread: this.threads[1],
       user: this.users[3],
     },
     {
       uuid: '3',
       content: 'You kids need to expand your horizon. I always blend cake with some cat milk to get it more enjoyable.',
       created_at: '2022-07-23 20:24:33',
-      thread: this.threads[0],
+      thread: this.threads[1],
       user: this.users[0],
     },
     {
       uuid: '4',
       content: 'Not ok. Not even for a wizard.',
       created_at: '2022-07-23 20:25:46',
-      thread: this.threads[0],
+      thread: this.threads[1],
       user: this.users[3],
     },
   ]
@@ -134,4 +134,4 @@ class MockApiService {
 
 }
 
-export const mockApiService = new MockApiService()
+export const apiMockService = new ApiMockService()

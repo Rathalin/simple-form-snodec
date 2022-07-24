@@ -1,20 +1,13 @@
 <script setup lang="ts">
 import type { Thread } from '@/types/Thread'
+import { getTimeFromDateString } from '@/util/date.util'
 import { computed } from '@vue/reactivity';
 
 const { thread } = defineProps<{
   thread: Thread,
 }>()
 
-const created_at = computed(() => {
-  return new Date(thread.created_at).toLocaleString('en-US', {
-    day: '2-digit',
-    month: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-})
+const created_at = computed(() => getTimeFromDateString(thread.created_at))
 </script>
 
 <template>

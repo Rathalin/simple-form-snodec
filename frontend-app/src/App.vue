@@ -5,6 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
+    <!-- <div id="logo">🍰</div> -->
     <nav>
       <RouterLink to="/">
         <button class="round" type="button">Home</button>
@@ -15,22 +16,42 @@ import { RouterLink, RouterView } from 'vue-router'
     </nav>
   </header>
 
-  <RouterView />
+  <div>
+    <RouterView />
+  </div>
 </template>
 
 <style scoped lang="scss">
 header {
   line-height: 1.5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-shadow: var(--shadow-prime);
+  background-color: var(--c-back-acc-1);
+}
+
+#logo {
+  justify-self: flex-start;
+  padding-inline: 1em;
+}
+
+.colors {
+  background-image: url('./assets/negative-space.jpg');
+  background-size: cover;
+  flex: 1;
+  animation: gradient-spin 5s ease infinite;
+
 }
 
 nav {
   padding: 0.5em;
-  box-shadow: var(--shadow-prime);
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   gap: 1em;
-  background-color : var(--c-back-acc-1);
+  width: 100%;
 
   a {
     &:first-of-type {

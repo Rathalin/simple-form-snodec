@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 import { ref } from '@vue/reactivity'
 import type { Thread } from '@/types/Thread'
-import { mockApiService } from '@/services/mock-api.service'
+import { apiMockService } from '@/services/api.mock.service'
 import ThreadItem from '../components/ThreadItem.vue'
 import { useRoute } from 'vue-router'
 import type { Topic } from '@/types/Topic'
@@ -13,8 +13,8 @@ const threads = ref<Thread[]>([])
 
 onMounted(async () => {
   const topicUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
-  topic.value = await mockApiService.getTopicByUUID(topicUuid)
-  threads.value = await mockApiService.getThreadsByTopicUUID(topicUuid)
+  topic.value = await apiMockService.getTopicByUUID(topicUuid)
+  threads.value = await apiMockService.getThreadsByTopicUUID(topicUuid)
 })
 </script>
 

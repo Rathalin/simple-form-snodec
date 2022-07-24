@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import type { Topic } from '@/types/Topic'
-import { mockApiService } from '@/services/mock-api.service'
+import { apiMockService } from '@/services/api.mock.service'
 import TopicItem from '@/components/TopicItem.vue'
 
 const topics = ref<Topic[]>([])
 
 onMounted(async () => {
-  topics.value = await mockApiService.getTopics()
+  topics.value = await apiMockService.getTopics()
 })
 </script>
 

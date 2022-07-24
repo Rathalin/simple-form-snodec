@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { mockApiService } from '@/services/mock-api.service'
+import { apiMockService } from '@/services/api.mock.service'
 import type { User } from '@/types/User'
 import { onMounted, ref } from 'vue'
 
 const users = ref<User[]>([])
 
 onMounted(async () => {
-  users.value = await mockApiService.getUsers()
+  users.value = await apiMockService.getUsers()
 })
 </script>
 
 <template>
   <main class="container">
     <h1>Registered users</h1>
-    <ol>
+    <ol class="card no-hover">
       <li v-for="user of users" :key="user.uuid">{{ user.email }}</li>
     </ol>
   </main>
@@ -21,6 +21,7 @@ onMounted(async () => {
 
 <style scoped lang="scss">
 ol {
+  margin-top: 1em;
   list-style: upper-roman;
 }
 </style>

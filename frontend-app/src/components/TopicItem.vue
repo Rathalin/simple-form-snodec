@@ -1,20 +1,13 @@
 <script setup lang="ts">
 import type { Topic } from '@/types/Topic'
 import { computed } from '@vue/reactivity'
+import { getTimeFromDateString } from '@/util/date.util'
 
 const { topic } = defineProps<{
   topic: Topic
 }>()
 
-const created_at = computed(() => {
-  return new Date(topic.created_at).toLocaleString('en-US', {
-    day: '2-digit',
-    month: 'numeric',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-})
+const created_at = computed(() => getTimeFromDateString(topic.created_at))
 </script>
 
 <template>
