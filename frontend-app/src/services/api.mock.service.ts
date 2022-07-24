@@ -7,22 +7,22 @@ class ApiMockService {
 
   private readonly users: User[] = [
     {
-      uuid: '0',
+      uuid: '90fe2d9c-0b74-11ed-9873-08002771075f',
       email: 'petrosilius.zwackelmann@zwicki-buxtehude.de',
       created_at: '2015-03-11 02:40:19',
     },
     {
-      uuid: '1',
+      uuid: '97c85a5f-0b74-11ed-9873-08002771075f',
       email: 'alois.dimpfelmoser@polizei.de',
       created_at: '2020-02-20 09:58:07',
     },
     {
-      uuid: '2',
+      uuid: '9feb62b2-0b74-11ed-9873-08002771075f',
       email: 'seppel.schubert@tum.de',
       created_at: '2017-09-25 03:00:00',
     },
     {
-      uuid: '3',
+      uuid: 'a48fae48-0b74-11ed-9873-08002771075f',
       email: 'kasperl.wimmer@tum.de',
       created_at: '2017-09-25 03:00:00',
     },
@@ -30,14 +30,14 @@ class ApiMockService {
 
   private readonly topics: Topic[] = [
     {
-      uuid: '0',
+      uuid: 'aae74cc2-0b74-11ed-9873-08002771075f',
       title: 'Cake',
       description: 'Discussions about cake',
       created_at: '2022-07-23 20:08:03',
       user: this.users[2],
     },
     {
-      uuid: '1',
+      uuid: 'b0eebc52-0b74-11ed-9873-08002771075f',
       title: 'Soup',
       description: 'Share your thoughts about soup',
       created_at: '2022-07-23 20:11:35',
@@ -47,14 +47,14 @@ class ApiMockService {
 
   private readonly threads: Thread[] = [
     {
-      uuid: '0',
+      uuid: 'b60af287-0b74-11ed-9873-08002771075f',
       title: 'Sacher Torte',
       created_at: '2022-07-23 20:13:38',
       topic: this.topics[0],
       user: this.users[2],
     },
     {
-      uuid: '1',
+      uuid: 'bb73a5ae-0b74-11ed-9873-08002771075f',
       title: 'Eating cake with a straw',
       created_at: '2022-07-23 20:15:16',
       topic: this.topics[0],
@@ -64,35 +64,35 @@ class ApiMockService {
 
   private readonly comments: Comment[] = [
     {
-      uuid: '0',
+      uuid: 'c1f8d260-0b74-11ed-9873-08002771075f',
       content: 'I like Sacher Torte, pretty neat Austrian dish.',
       created_at: '2022-07-23 20:18:06',
       thread: this.threads[0],
       user: this.users[1],
     },
     {
-      uuid: '1',
+      uuid: 'c5dfcb12-0b74-11ed-9873-08002771075f',
       content: '????',
       created_at: '2022-07-23 20:20:14',
       thread: this.threads[1],
       user: this.users[2],
     },
     {
-      uuid: '2',
+      uuid: 'cf0503cc-0b74-11ed-9873-08002771075f',
       content: 'Yeah, wtf dude',
       created_at: '2022-07-23 20:20:39',
       thread: this.threads[1],
       user: this.users[3],
     },
     {
-      uuid: '3',
+      uuid: 'd3663df9-0b74-11ed-9873-08002771075f',
       content: 'You kids need to expand your horizon. I always blend cake with some cat milk to get it more enjoyable.',
       created_at: '2022-07-23 20:24:33',
       thread: this.threads[1],
       user: this.users[0],
     },
     {
-      uuid: '4',
+      uuid: 'd9bdca23-0b74-11ed-9873-08002771075f',
       content: 'Not ok. Not even for a wizard.',
       created_at: '2022-07-23 20:25:46',
       thread: this.threads[1],
