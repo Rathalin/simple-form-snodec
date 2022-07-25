@@ -26,6 +26,9 @@ const created_at = computed(() => getDateTimeFromString(props.topic.created_at))
 </template>
 
 <style scoped lang="scss">
+h2 {
+  margin-block: 0.2em;
+}
 .item {
   display: flex;
   flex-direction: column;

@@ -13,6 +13,12 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/registered-users">
         <button class="round" type="button">Registered Users</button>
       </RouterLink>
+      <RouterLink to="/about">
+        <button class="round" type="button">About</button>
+      </RouterLink>
+      <RouterLink to="/emoji">
+        <button class="round" type="button">🤔</button>
+      </RouterLink>
     </nav>
   </header>
 

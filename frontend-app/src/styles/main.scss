@@ -9,13 +9,16 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   font-family: inherit;
   color: inherit;
   position: relative;
   font-weight: normal;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -31,7 +34,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, nav {
+h1,
+h2,
+h3,
+h4,
+h5,
+nav {
   font-family: var(--font-second);
   line-height: 1.6em;
 }
@@ -45,7 +53,7 @@ h1, h2, h3, h4, h5, nav {
 main.container {
   max-width: 120ch;
   margin-inline: auto;
-  padding: 2rem;
+  padding-inline: 2rem;
 }
 
 a {

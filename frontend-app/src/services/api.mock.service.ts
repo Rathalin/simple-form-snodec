@@ -39,14 +39,14 @@ class ApiMockService {
   private readonly topics: Topic[] = [
     {
       uuid: 'aae74cc2-0b74-11ed-9873-08002771075f',
-      title: 'Cake',
+      title: 'Cake 🍰',
       description: 'Discussions about cake',
       created_at: '2022-07-23 20:08:03',
       user: this.users[2],
     },
     {
       uuid: 'b0eebc52-0b74-11ed-9873-08002771075f',
-      title: 'Soup',
+      title: 'Soup 🥣',
       description: 'Share your thoughts about soup',
       created_at: '2022-07-23 20:11:35',
       user: this.users[3],
@@ -94,7 +94,7 @@ class ApiMockService {
     },
     {
       uuid: 'd3663df9-0b74-11ed-9873-08002771075f',
-      content: 'You kids need to expand your horizon. I always blend cake with some cat milk to get it more enjoyable.',
+      content: 'You kids need to expand your horizon. I always blend cake with some cat milk to make it more enjoyable.',
       created_at: '2022-07-23 20:24:33',
       thread: this.threads[1],
       user: this.users[0],

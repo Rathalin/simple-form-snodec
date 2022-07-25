@@ -27,7 +27,7 @@ onMounted(async () => {
       <BackButton route-to="/" label="All topics" />
     </h1>
     <div class="comments">
-      <CommentItem v-for="comment in comments" :comment="comment" />
+      <CommentItem v-for="comment in comments" :comment="comment" :thread-owner="thread?.user.uuid === comment.user.uuid" />
     </div>
   </main>
 </template>

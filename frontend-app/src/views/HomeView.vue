@@ -14,7 +14,7 @@ onMounted(async () => {
 <template>
   <main class="container">
     <h1 class="mg-b-05em">
-      <div class="heading-text">Topics</div>
+      <div class="heading-text">Topics 🍴</div>
     </h1>
     <div class="topics">
       <TopicItem v-for="topic in topics" :topic="topic" />

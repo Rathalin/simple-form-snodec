@@ -44,6 +44,16 @@ const router = createRouter({
       name: 'user',
       component: () => import('@/views/UserView.vue'),
     },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('@/views/AboutView.vue'),
+    },
+    {
+      path: '/emoji',
+      name: 'emoji',
+      component: () => import('@/views/EmojiView.vue'),
+    },
   ]
 })
 
