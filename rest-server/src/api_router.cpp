@@ -15,7 +15,29 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
 {
     express::Router apiRouter;
 
-    // Database example
+    // Example: Access JSON from request body
+    apiRouter.post("/example", [] APPLICATION(req, res) {
+        req.getAttribute<nlohmann::json>(
+            [&res](nlohmann::json& body) -> void {
+                // Body is send by the client
+                VLOG(0) << "Client send the json: " << body.dump(4);
+                res.send(json { { "success", "Request was successful" } }.dump(4));
+            },
+            [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(500);
+            });
+    });
+
+    // Example: JSON as response
+    apiRouter.get("/example", [] APPLICATION(req, res) {
+        json arrayJson = { { { "email", "alois.dimpfelmoser@polizei.de" } },
+            { { "email", "seppl.schubert@gmx.com" } },
+            { { "email", "kasperl.schubert@gmx.com" } } };
+        // dump(4) = JSON to string with 4 spaces indentation
+        res.send(arrayJson.dump(4));
+    });
+
+    // Example: Database
     apiRouter.get("/users", [&db] APPLICATION(req, res) {
         json* usersJson = new json;
         db.query(
@@ -34,7 +56,7 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
             });
     });
 
-    // Check passsword hash example
+    // Example: Check user passsword
     apiRouter.post("/login", [&db] APPLICATION(req, res) {
         req.getAttribute<nlohmann::json>(
             [&req, &res, &db](nlohmann::json& body) -> void {
@@ -85,26 +107,6 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
             });
     });
 
-    apiRouter.post("/example", [] APPLICATION(req, res) {
-        req.getAttribute<nlohmann::json>(
-            [&res](nlohmann::json& body) -> void {
-                // Body is send by the client
-                VLOG(0) << "Client send the json: " << body.dump(4);
-                res.send(json { { "success", "Request was successful" } }.dump(4));
-            },
-            [&res]([[maybe_unused]] const std::string& key) -> void {
-                res.sendStatus(500);
-            });
-    });
-
-    // JSON as response example
-    apiRouter.get("/example", [] APPLICATION(req, res) {
-        json arrayJson = { { { "email", "alois.dimpfelmoser@polizei.de" } },
-            { { "email", "seppl.schubert@gmx.com" } },
-            { { "email", "kasperl.schubert@gmx.com" } } };
-        // dump(4) = JSON to string with 4 spaces indentation
-        res.send(arrayJson.dump(4));
-    });
     return apiRouter;
 }
 
