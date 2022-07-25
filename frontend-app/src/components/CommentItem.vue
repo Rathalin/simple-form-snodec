@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import type { Comment } from '@/types/Comment'
 import { computed } from 'vue'
-import { getTimeFromDateString } from '@/util/date.util'
+import { getDateTimeFromString } from '@/util/date.util'
+import UserLink from './UserLink.vue'
 
-const { comment } = defineProps<{
+const props = defineProps<{
   comment: Comment
 }>()
 
-const created_at = computed(() => getTimeFromDateString(comment.created_at))
+const created_at = computed(() => getDateTimeFromString(props.comment.created_at))
 </script>
 
 <template>
   <div class="item">
     <div class="subinfo">
-      <RouterLink to="#" class="email">{{ comment.user.email }}</RouterLink>
+      <UserLink :user="comment.user" />
       <span> at </span>
       <span class="date">{{ created_at }}</span>
     </div>

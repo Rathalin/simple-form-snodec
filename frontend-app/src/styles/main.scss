@@ -48,6 +48,13 @@ a:not(.link) {
   text-decoration: none;
 }
 
+a.link {
+
+  &:hover {
+    color: var(--c-prime);
+  }
+}
+
 button {
   outline: none;
   display: flex;

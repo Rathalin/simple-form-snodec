@@ -104,6 +104,10 @@ class ApiMockService {
     return Promise.resolve(this.users)
   }
 
+  async getUserByUUID(uuid: string) {
+    return Promise.resolve(this.users.find(user => user.uuid == uuid) ?? null)
+  }
+
   async getTopics() {
     return Promise.resolve(this.topics)
   }

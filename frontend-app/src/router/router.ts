@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth-store'
 import LoginView from '@/views/LoginView.vue'
 import HomeView from '@/views/HomeView.vue'
 import TopicView from '@/views/TopicView.vue'
 import ThreadView from '@/views/ThreadView.vue'
 import UserListView from '@/views/UserListView.vue'
-import { useAuthStore } from '@/stores/auth-store'
 
 
 const router = createRouter({
@@ -38,6 +38,11 @@ const router = createRouter({
       path: '/registered-users',
       name: 'registered-users',
       component: UserListView,
+    },
+    {
+      path: '/user/:uuid',
+      name: 'user',
+      component: () => import('@/views/UserView.vue'),
     },
   ]
 })

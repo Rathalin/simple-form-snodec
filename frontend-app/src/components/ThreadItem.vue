@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type { Thread } from '@/types/Thread'
-import { getTimeFromDateString } from '@/util/date.util'
+import { getDateTimeFromString } from '@/util/date.util'
 import { computed } from '@vue/reactivity';
+import UserLink from './UserLink.vue';
 
-const { thread } = defineProps<{
+const props = defineProps<{
   thread: Thread,
 }>()
 
-const created_at = computed(() => getTimeFromDateString(thread.created_at))
+const created_at = computed(() => getDateTimeFromString(props.thread.created_at))
 </script>
 
 <template>
@@ -15,7 +16,7 @@ const created_at = computed(() => getTimeFromDateString(thread.created_at))
     <div class="item">
       <h2 class="title">{{ thread.title }}</h2>
       <div class="subinfo">
-        <RouterLink to="#" class="email">{{ thread.user.email }}</RouterLink>
+        <UserLink :user="thread.user" />
         <span> at </span>
         <span class="date">{{ created_at }}</span>
       </div>

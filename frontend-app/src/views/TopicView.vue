@@ -6,6 +6,7 @@ import { apiMockService } from '@/services/api.mock.service'
 import ThreadItem from '../components/ThreadItem.vue'
 import { useRoute } from 'vue-router'
 import type { Topic } from '@/types/Topic'
+import BackButton from '../components/BackButton.vue'
 
 const route = useRoute()
 const topic = ref<Topic | null>(null)
@@ -20,14 +21,9 @@ onMounted(async () => {
 
 <template>
   <main class="container">
-    <h1 class="flex-row gap-1em">
-      <div class="heading">{{ topic?.title }}</div>
-      <RouterLink to="/">
-        <button class="round">
-          <i class="material-icons">arrow_back</i>
-          <span>All topics</span>
-        </button>
-      </RouterLink>
+    <h1 class="flex-row gap-1em mg-b-05em">
+      <div class="heading-text">{{ topic?.title }}</div>
+      <BackButton route-to="/" label="All topics" />
     </h1>
     <div class="threads">
       <ThreadItem v-for="thread in threads" :thread="thread" />
@@ -36,6 +32,10 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+.heading-text {
+  line-height: 1.2em;
+}
+
 .threads {
   margin-top: 1em;
   display: flex;

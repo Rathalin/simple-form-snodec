@@ -13,8 +13,8 @@ onMounted(async () => {
 
 <template>
   <main class="container">
-    <h1>
-      <div class="heading">Topics</div>
+    <h1 class="mg-b-05em">
+      <div class="heading-text">Topics</div>
     </h1>
     <div class="topics">
       <TopicItem v-for="topic in topics" :topic="topic" />
@@ -23,11 +23,14 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+.heading-text {
+  line-height: 1.2em;
+}
+
 .topics {
   margin-top: 1em;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
 }
-
 </style>
