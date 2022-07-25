@@ -5,7 +5,8 @@ import { getDateTimeFromString } from '@/util/date.util'
 import UserLink from './UserLink.vue'
 
 const props = defineProps<{
-  comment: Comment
+  comment: Comment,
+  threadOwner?: boolean,
 }>()
 
 const created_at = computed(() => getDateTimeFromString(props.comment.created_at))
@@ -20,7 +21,7 @@ const firstLetter = computed(() => props.comment.user.username.charAt(0).toLocal
     </RouterLink>
     <div class="content-wrapper flex-col">
       <div class="subinfo">
-        <UserLink :user="comment.user" />
+        <UserLink :class="{ highlight: threadOwner }" :user="comment.user" />
         <span> at </span>
         <span class="date">{{ created_at }}</span>
       </div>
@@ -30,6 +31,17 @@ const firstLetter = computed(() => props.comment.user.username.charAt(0).toLocal
 </template>
 
 <style scoped lang="scss">
+.highlight {
+  background-color: var(--c-second-acc-1);
+  color: var(--c-text-prime);
+  border-radius: 1em;
+  padding: 1px 6px;
+
+  &:hover {
+    color: var(--c-text-prime-acc-1);
+  }
+}
+
 .item {
   gap: 1em;
 }
