@@ -32,10 +32,6 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
-.heading-text {
-  line-height: 1.2em;
-}
-
 .threads {
   margin-top: 1em;
   display: flex;

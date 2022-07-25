@@ -7,5 +7,5 @@ JOIN thread th
 JOIN topic t 
     ON th.topic_id = t.id;
 
-SELECT email
+SELECT username, email, color_hex, created_at
 FROM user_account;

@@ -8,22 +8,30 @@ class ApiMockService {
   private readonly users: User[] = [
     {
       uuid: '90fe2d9c-0b74-11ed-9873-08002771075f',
+      username: 'Petrosilius Zwackelmann',
       email: 'petrosilius.zwackelmann@zwicki-buxtehude.de',
+      color_hex: '#3d315b',
       created_at: '2015-03-11 02:40:19',
     },
     {
       uuid: '97c85a5f-0b74-11ed-9873-08002771075f',
+      username: 'Wachtmeister Alois Dimpfelmoser',
       email: 'alois.dimpfelmoser@polizei.de',
+      color_hex: '#444b6e',
       created_at: '2020-02-20 09:58:07',
     },
     {
       uuid: '9feb62b2-0b74-11ed-9873-08002771075f',
+      username: 'Seppl1994',
       email: 'seppel.schubert@tum.de',
+      color_hex: '#848607',
       created_at: '2017-09-25 03:00:00',
     },
     {
       uuid: 'a48fae48-0b74-11ed-9873-08002771075f',
+      username: 'xXL9Sn1pr360Xx',
       email: 'kasperl.wimmer@tum.de',
+      color_hex: '#4c6134',
       created_at: '2017-09-25 03:00:00',
     },
   ]

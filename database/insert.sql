@@ -8,36 +8,44 @@ DELETE FROM user_account;
 
 # Insert test user Daniel
 SET @salt_daniel = UUID();
-INSERT INTO user_account(email, password_hash, password_salt)
+INSERT INTO user_account(username, email, color_hex, password_hash, password_salt)
 VALUES(
+    'Daniel Flockert',
     'daniel@flockert.at',
+    '#B93F21',
     SHA1(CONCAT(@salt_daniel, 'rathalin')),
     @salt_daniel
 );
 
 # Insert test user Philip
 SET @salt_philip = UUID();
-INSERT INTO user_account(email, password_hash, password_salt)
+INSERT INTO user_account(username, email, color_hex, password_hash, password_salt)
 VALUES(
+    'Philip Toolan',
     'philtoolan@gmail.com',
+    '#21B956',
     SHA1(CONCAT(@salt_philip, 'pub')),
     @salt_philip
 );
 
 # Insert test user Rita
 SET @salt_rita = UUID();
-INSERT INTO user_account(email, password_hash, password_salt)
+INSERT INTO user_account(username, email, color_hex, password_hash, password_salt)
 VALUES(
+    'Rita Hainzl',
     'rhainzl@hotmail.com',
+    '#2186B9',
     SHA1(CONCAT(@salt_rita, 'linz')),
     @salt_rita
 );
 
 # Insert test user Sebastian
 SET @salt_rita = UUID();
-INSERT INTO user_account(email, password_hash, password_salt)
+INSERT INTO user_account(username, email, color_hex, password_hash, password_salt)
 VALUES(
+    'Sebastian Mayer',
     'mayee.sebastian@gmail.com',
+    '#9621B9',
     SHA1(CONCAT(@salt_rita, 'ooe')),
     @salt_rita
 );

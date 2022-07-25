@@ -33,10 +33,6 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
-.heading-text {
-  line-height: 1.2em;
-}
-
 .comments {
   margin-top: 1em;
   display: flex;

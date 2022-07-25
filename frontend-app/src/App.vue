@@ -23,7 +23,6 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style scoped lang="scss">
 header {
-  line-height: 1.5;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -9,30 +9,45 @@ const props = defineProps<{
 }>()
 
 const created_at = computed(() => getDateTimeFromString(props.comment.created_at))
+const firstLetter = computed(() => props.comment.user.username.charAt(0).toLocaleUpperCase())
+
 </script>
 
 <template>
-  <div class="item">
-    <div class="subinfo">
-      <UserLink :user="comment.user" />
-      <span> at </span>
-      <span class="date">{{ created_at }}</span>
+  <div class="item flex-row">
+    <RouterLink :to="`/user/${comment.user.uuid}`">
+      <div class="thumbnail" :style="{ 'background-color': comment.user.color_hex }">{{ firstLetter }}</div>
+    </RouterLink>
+    <div class="content-wrapper flex-col">
+      <div class="subinfo">
+        <UserLink :user="comment.user" />
+        <span> at </span>
+        <span class="date">{{ created_at }}</span>
+      </div>
+      <div class="content">{{ comment.content }}</div>
     </div>
-    <div class="content">{{ comment.content }}</div>
   </div>
 </template>
 
 <style scoped lang="scss">
-div.item {
-  font-family: var(--font-second);
-  display: flex;
-  flex-direction: column;
-  gap: 0.2em;
+.item {
+  gap: 1em;
+}
 
-  .content {
-    font-size: 14px;
-    line-height: 0.5rem;
-  }
+.content-wrapper {
+  gap: 0.2em;
+}
+
+.thumbnail {
+  border-radius: 50%;
+  line-height: 40px;
+  width: 40px;
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.content {
+  font-size: 14px;
 }
 
 .subinfo {

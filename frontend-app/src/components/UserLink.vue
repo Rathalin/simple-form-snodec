@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <RouterLink :to="`/user/${user.uuid}`" class="link">{{ user.email }}</RouterLink>
+  <RouterLink :to="`/user/${user.uuid}`" class="link">{{ user.username }}</RouterLink>
 </template>
 
 <style scoped lang="scss">

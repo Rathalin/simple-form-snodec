@@ -22,11 +22,12 @@ onMounted(async () => {
 <template>
   <template v-if="user != null">
     <main class="container">
-      <h1 class="flex-row gap-1em">
-        <div>{{ user.email }}</div>
+      <h1 class="flex-row gap-1em mg-b-05em">
+        <div>{{ user.username }}</div>
         <BackButton label="Back" />
       </h1>
-      <div>Joined at {{ created_at }}</div>
+      <div>Email: {{ user.email }}</div>
+      <div>Joined: {{ created_at }}</div>
     </main>
   </template>
 </template>
