@@ -7,6 +7,7 @@ import ThreadItem from '../components/ThreadItem.vue'
 import { useRoute } from 'vue-router'
 import type { Topic } from '@/types/Topic'
 import BackButton from '../components/BackButton.vue'
+import NoEntryMessage from '../components/NoEntryMessage.vue'
 
 const route = useRoute()
 const topic = ref<Topic | null>(null)
@@ -25,9 +26,10 @@ onMounted(async () => {
       <div class="heading-text">{{ topic?.title }}</div>
       <BackButton route-to="/" label="All topics" />
     </h1>
-    <div class="threads">
+    <div v-if="threads.length > 0" class="threads">
       <ThreadItem v-for="thread in threads" :thread="thread" />
     </div>
+    <NoEntryMessage v-else>Be the first to create a thread.</NoEntryMessage>
   </main>
 </template>
 

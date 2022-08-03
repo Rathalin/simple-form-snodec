@@ -3,6 +3,7 @@ import type { Comment } from '@/types/Comment'
 import { computed } from 'vue'
 import { getDateTimeFromString } from '@/util/date.util'
 import UserLink from './UserLink.vue'
+import UserThumbnail from './UserThumbnail.vue'
 
 const props = defineProps<{
   comment: Comment,
@@ -10,14 +11,13 @@ const props = defineProps<{
 }>()
 
 const created_at = computed(() => getDateTimeFromString(props.comment.created_at))
-const firstLetter = computed(() => props.comment.user.username.charAt(0).toLocaleUpperCase())
 
 </script>
 
 <template>
-  <div class="item flex-row">
+  <div class="item flex-row no-wrap">
     <RouterLink :to="`/user/${comment.user.uuid}`">
-      <div class="thumbnail" :style="{ 'background-color': comment.user.color_hex }">{{ firstLetter }}</div>
+      <UserThumbnail :user="comment.user" />
     </RouterLink>
     <div class="content-wrapper flex-col">
       <div class="subinfo">
@@ -48,14 +48,6 @@ const firstLetter = computed(() => props.comment.user.username.charAt(0).toLocal
 
 .content-wrapper {
   gap: 0.2em;
-}
-
-.thumbnail {
-  border-radius: 50%;
-  line-height: 40px;
-  width: 40px;
-  font-size: 1.2em;
-  text-align: center;
 }
 
 .content {

@@ -5,6 +5,7 @@ import { getDateFromString } from '@/util/date.util'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';
 import BackButton from '../components/BackButton.vue';
+import UserThumbnail from '../components/UserThumbnail.vue';
 
 const route = useRoute()
 const user = ref<User | null>(null)
@@ -26,11 +27,25 @@ onMounted(async () => {
         <div>{{ user.username }}</div>
         <BackButton label="Back" />
       </h1>
-      <div>Email: {{ user.email }}</div>
-      <div>Joined: {{ created_at }}</div>
+      <div class="flex-row gap-1em">
+        <UserThumbnail :user="user" />
+        <div class="flex-col">
+          <div class="flex-row icon-row">
+            <span class="material-icons">email</span>
+            <span>{{ user.email }}</span>
+          </div>
+          <div class="flex-row icon-row">
+            <span class="material-icons">access_time</span>
+            <span>{{ created_at }}</span>
+          </div>
+        </div>
+      </div>
     </main>
   </template>
 </template>
 
 <style scoped lang="scss">
+.icon-row {
+  gap: 0.5rem;
+}
 </style>

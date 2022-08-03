@@ -13,15 +13,28 @@ onMounted(async () => {
 <template>
   <main class="container">
     <h1>Registered users</h1>
-    <ol class="card no-hover">
-      <li v-for="user of users" :key="user.uuid">{{ user.email }}</li>
-    </ol>
+    <div class="card no-hover">
+      <ol>
+        <li v-for="user of users" :key="user.uuid">
+          <div>{{ user.username }}</div>
+          <div>{{ user.email }}</div>
+        </li>
+      </ol>
+    </div>
   </main>
 </template>
 
 <style scoped lang="scss">
+.card {
+  padding: 1em;
+}
+
 ol {
   margin-top: 1em;
   list-style: upper-roman;
+
+  li:not(:first-of-type) {
+    margin-top: 1em;
+  }
 }
 </style>

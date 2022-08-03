@@ -10,9 +10,9 @@
 *::after {
   box-sizing: border-box;
   font-family: inherit;
-  color: inherit;
   position: relative;
-  font-weight: normal;
+  color: inherit;
+  // font-weight: normal;
 }
 
 html,
@@ -42,6 +42,7 @@ h5,
 nav {
   font-family: var(--font-second);
   line-height: 1.6em;
+  font-weight: 600;
 }
 
 #app {
@@ -57,15 +58,17 @@ main.container {
 }
 
 a {
-  text-decoration: none;
+  &:not(.link) {
+    text-decoration: none;
+  }
 
   &.link {
-    font-weight: bold;
-    transition-duration: var(--duration-fast);
+    color: var(--c-prime);
     transition-property: color;
+    transition-duration: var(--duration-fast);
 
     &:hover {
-      color: var(--c-text-prime-acc-1);
+      color: var(--c-prime-acc-1);
     }
   }
 }

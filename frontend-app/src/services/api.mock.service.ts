@@ -51,6 +51,13 @@ class ApiMockService {
       created_at: '2022-07-23 20:11:35',
       user: this.users[3],
     },
+    {
+      uuid: 'f38d81d7-0d18-11ed-9af8-08002771075f',
+      title: 'Wonton / Dumplings 🥟',
+      description: 'Share your thoughts about soup',
+      created_at: '2022-07-23 20:11:35',
+      user: this.users[3],
+    },
   ]
 
   private readonly threads: Thread[] = [
@@ -67,6 +74,27 @@ class ApiMockService {
       created_at: '2022-07-23 20:15:16',
       topic: this.topics[0],
       user: this.users[0],
+    },
+    {
+      uuid: '31d29be3-0d18-11ed-9af8-08002771075f',
+      title: 'Is tea soup?',
+      created_at: '2022-07-22 15:23:09',
+      topic: this.topics[1],
+      user: this.users[3],
+    },
+    {
+      uuid: '3c29a7f9-0d18-11ed-9af8-08002771075f',
+      title: 'Soup seasoning',
+      created_at: '2022-07-23 11:24:27',
+      topic: this.topics[1],
+      user: this.users[0],
+    },
+    {
+      uuid: '410716cd-0d18-11ed-9af8-08002771075f',
+      title: 'Goulash soup is the best soup',
+      created_at: '2022-07-26 21:26:12',
+      topic: this.topics[1],
+      user: this.users[2],
     },
   ]
 
@@ -94,7 +122,7 @@ class ApiMockService {
     },
     {
       uuid: 'd3663df9-0b74-11ed-9873-08002771075f',
-      content: 'You kids need to expand your horizon. I always blend cake with some cat milk to make it more enjoyable.',
+      content: 'You kids need to expand your horizon. I always blend cake with some almond milk to make it more enjoyable.',
       created_at: '2022-07-23 20:24:33',
       thread: this.threads[1],
       user: this.users[0],
@@ -109,39 +137,39 @@ class ApiMockService {
   ]
 
   async getUsers() {
-    return Promise.resolve(this.users)
+    return this.users
   }
 
   async getUserByUUID(uuid: string) {
-    return Promise.resolve(this.users.find(user => user.uuid == uuid) ?? null)
+    return this.users.find(user => user.uuid == uuid) ?? null
   }
 
   async getTopics() {
-    return Promise.resolve(this.topics)
+    return this.topics
   }
 
   async getTopicByUUID(uuid: string) {
-    return Promise.resolve(this.topics.find(topic => topic.uuid === uuid) ?? null)
+    return this.topics.find(topic => topic.uuid === uuid) ?? null
   }
 
   async getThreads() {
-    return Promise.resolve(this.threads)
+    return this.threads
   }
 
   async getThreadByUUID(uuid: string) {
-    return Promise.resolve(this.threads.find(thread => thread.uuid === uuid) ?? null)
+    return this.threads.find(thread => thread.uuid === uuid) ?? null
   }
 
   async getThreadsByTopicUUID(uuid: string) {
-    return Promise.resolve(this.threads.filter(thread => thread.topic.uuid === uuid))
+    return this.threads.filter(thread => thread.topic.uuid === uuid)
   }
 
   async getComments() {
-    return Promise.resolve(this.comments)
+    return this.comments
   }
 
   async getCommentsByThreadUuid(uuid: string) {
-    return Promise.resolve(this.comments.filter(comment => comment.thread.uuid === uuid))
+    return this.comments.filter(comment => comment.thread.uuid === uuid)
   }
 
 }

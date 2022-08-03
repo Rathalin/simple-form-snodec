@@ -14,7 +14,10 @@
       </p>
     </article>
     <article>
-      <h2>Team</h2>
+      <h2 class="flex-row">
+        <span>Team</span>
+        <span class="material-icons">people</span>
+      </h2>
       <p>
         <ul>
           <li>Daniel Flockert</li>
@@ -28,12 +31,7 @@
 </template>
 
 <style scoped lang="scss">
-a.link {
-  text-decoration: underline;
-  font-weight: normal;
-
-  &:hover {
-    color: var(--c-prime);
-  }
+h2 {
+  gap: 0.5rem;
 }
 </style>

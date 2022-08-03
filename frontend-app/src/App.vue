@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
+  <header class="flex-row wrap">
     <!-- <div id="logo">🍰</div> -->
     <nav>
       <RouterLink to="/">
@@ -16,7 +16,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/about">
         <button class="round" type="button">About</button>
       </RouterLink>
-      <RouterLink to="/emoji">
+      <RouterLink to="/xd">
         <button class="round" type="button">🤔</button>
       </RouterLink>
     </nav>
@@ -29,11 +29,8 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <style scoped lang="scss">
 header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   box-shadow: var(--shadow-prime);
-  background-color: var(--c-back-acc-1);
+  background-color: var(--c-back-dim-1);
 }
 
 #logo {
@@ -66,6 +63,10 @@ nav {
     &:not(.router-link-exact-active) button {
       background-color: transparent;
       color: var(--c-text-prime);
+
+      &:hover {
+        background-color: var(--c-back-acc-1);
+      }
     }
   }
 }

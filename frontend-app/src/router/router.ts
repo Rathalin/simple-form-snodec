@@ -50,8 +50,8 @@ const router = createRouter({
       component: () => import('@/views/AboutView.vue'),
     },
     {
-      path: '/emoji',
-      name: 'emoji',
+      path: '/xd',
+      name: 'xd',
       component: () => import('@/views/EmojiView.vue'),
     },
   ]

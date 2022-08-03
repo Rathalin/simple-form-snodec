@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import type { Topic } from '@/types/Topic'
 import { apiMockService } from '@/services/api.mock.service'
 import TopicItem from '@/components/TopicItem.vue'
+import NoEntryMessage from '../components/NoEntryMessage.vue'
 
 const topics = ref<Topic[]>([])
 
@@ -16,14 +17,14 @@ onMounted(async () => {
     <h1 class="mg-b-05em">
       <div class="heading-text">Topics 🍴</div>
     </h1>
-    <div class="topics">
+    <div v-if="topics.length > 0" class="topics">
       <TopicItem v-for="topic in topics" :topic="topic" />
     </div>
+    <NoEntryMessage v-else>No topics yet? Be the first to create one!</NoEntryMessage>
   </main>
 </template>
 
 <style scoped lang="scss">
-
 .topics {
   margin-top: 1em;
   display: flex;
