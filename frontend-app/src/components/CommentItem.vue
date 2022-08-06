@@ -6,8 +6,8 @@ import UserLink from './UserLink.vue'
 import UserThumbnail from './UserThumbnail.vue'
 
 const props = defineProps<{
-  comment: Comment,
-  threadOwner?: boolean,
+  comment: Comment
+  threadOwner?: boolean
 }>()
 
 const created_at = computed(() => getDateTimeFromString(props.comment.created_at))
@@ -16,9 +16,7 @@ const created_at = computed(() => getDateTimeFromString(props.comment.created_at
 
 <template>
   <div class="item flex-row no-wrap">
-    <RouterLink :to="`/user/${comment.user.uuid}`">
-      <UserThumbnail :user="comment.user" />
-    </RouterLink>
+    <UserThumbnail :user="comment.user" />
     <div class="content-wrapper flex-col">
       <div class="subinfo">
         <UserLink :class="{ highlight: threadOwner }" :user="comment.user" />

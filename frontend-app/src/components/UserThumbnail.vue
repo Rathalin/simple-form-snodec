@@ -10,7 +10,9 @@ const firstLetter = computed(() => props.user.username.charAt(0).toLocaleUpperCa
 </script>
 
 <template>
-  <div class="thumbnail" :style="{ 'background-color': user.color_hex }">{{ firstLetter }}</div>
+  <RouterLink :to="`/user/${user.uuid}`">
+    <div class="thumbnail" :style="{ 'background-color': user.color_hex }">{{ firstLetter }}</div>
+  </RouterLink>
 </template>
 
 <style scoped lang="scss">

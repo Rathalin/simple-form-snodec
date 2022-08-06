@@ -22,7 +22,7 @@ onMounted(async () => {
 
 <template>
   <main class="container">
-    <h1 class="flex-row gap-1em mg-b-05em">
+    <h1 class="flex-row gap-1">
       <div class="heading-text">{{ topic?.title }}</div>
       <BackButton route-to="/" label="All topics" />
     </h1>

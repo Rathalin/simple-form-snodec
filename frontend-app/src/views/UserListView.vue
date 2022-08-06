@@ -2,6 +2,8 @@
 import { apiMockService } from '@/services/api.mock.service'
 import type { User } from '@/types/User'
 import { onMounted, ref } from 'vue'
+import UserThumbnail from '../components/UserThumbnail.vue'
+import UserLink from '../components/UserLink.vue'
 
 const users = ref<User[]>([])
 
@@ -16,8 +18,10 @@ onMounted(async () => {
     <div class="card no-hover">
       <ol>
         <li v-for="user of users" :key="user.uuid">
-          <div>{{ user.username }}</div>
-          <div>{{ user.email }}</div>
+          <div class="flex-row no-wrap gap-1">
+            <UserThumbnail :user="user" />
+            <UserLink :user="user" />
+          </div>
         </li>
       </ol>
     </div>
@@ -31,7 +35,8 @@ onMounted(async () => {
 
 ol {
   margin-top: 1em;
-  list-style: upper-roman;
+  padding-inline: inherit;
+  list-style: none;
 
   li:not(:first-of-type) {
     margin-top: 1em;

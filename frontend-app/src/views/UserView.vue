@@ -23,11 +23,11 @@ onMounted(async () => {
 <template>
   <template v-if="user != null">
     <main class="container">
-      <h1 class="flex-row gap-1em mg-b-05em">
+      <h1 class="flex-row gap-1">
         <div>{{ user.username }}</div>
         <BackButton label="Back" />
       </h1>
-      <div class="flex-row gap-1em">
+      <div class="flex-row gap-1">
         <UserThumbnail :user="user" />
         <div class="flex-col">
           <div class="flex-row icon-row">
