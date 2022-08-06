@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 
 const props = defineProps<{
-  inputLabel: string
-  inputPlaceholder: string
+  inputLabel?: string
+  inputPlaceholder?: string
   buttonLabel: string
 }>()
 
@@ -22,7 +22,7 @@ function submitInput(): void {
 
 <template>
   <div class="input-wrapper flex-col">
-    <label for="new-topic">{{ props.inputLabel }}</label>
+    <label v-if="props.inputLabel" for="new-topic">{{ props.inputLabel }}</label>
     <div class="flex-row gap-1">
       <input v-model="inputText" v-on:focus="inputFocused = true" v-on:blur="inputFocused = false"
         :placeholder="props.inputPlaceholder" type="text" name="new-topic" id="new-topic">

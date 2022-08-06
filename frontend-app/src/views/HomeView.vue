@@ -24,10 +24,8 @@ function onCreateTopic(input: string): void {
       <div class="heading-text">Topics 🍴</div>
     </h1>
 
-    <div id="topic-input-wrapper">
-      <SingleInput input-label="Topic" input-placeholder="Create a topic" button-label="Create"
-        @submit-input="onCreateTopic" />
-    </div>
+    <SingleInput input-placeholder="Create a topic" button-label="Create"
+      @submit-input="onCreateTopic" />
 
     <div v-if="topics.length > 0" class="topics">
       <TopicItem v-for="topic in topics" :topic="topic" />
@@ -38,13 +36,9 @@ function onCreateTopic(input: string): void {
 
 <style scoped lang="scss">
 .topics {
-  margin-top: 1em;
+  margin-top: 2em;
   display: flex;
   flex-direction: column;
   gap: 0.5em;
-}
-
-#topic-input-wapper {
-  margin-bottom: 1em;
 }
 </style>
