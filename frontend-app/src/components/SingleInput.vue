@@ -25,7 +25,7 @@ function submitInput(): void {
     <label v-if="props.inputLabel" for="new-topic">{{ props.inputLabel }}</label>
     <div class="flex-row gap-1">
       <input v-model="inputText" v-on:focus="inputFocused = true" v-on:blur="inputFocused = false"
-        :placeholder="props.inputPlaceholder" type="text" name="new-topic" id="new-topic">
+        :placeholder="props.inputPlaceholder" type="text" name="new-topic" id="new-topic" autocomplete="off">
       <button v-if="inputFocused || inputText" :disabled="inputText.length === 0" @click="submitInput">
         {{ props.buttonLabel }}
       </button>

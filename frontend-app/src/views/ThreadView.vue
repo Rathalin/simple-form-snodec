@@ -7,6 +7,7 @@ import { useRoute } from 'vue-router'
 import CommentItem from '@/components/CommentItem.vue'
 import BackButton from '../components/BackButton.vue'
 import NoEntryMessage from '../components/NoEntryMessage.vue'
+import CommentInput from '../components/CommentInput.vue'
 
 const route = useRoute()
 const thread = ref<Thread | null>(null)
@@ -28,7 +29,9 @@ onMounted(async () => {
       <BackButton route-to="/" label="All topics" />
     </h1>
     <div v-if="comments.length > 0" class="comments">
-      <CommentItem v-for="comment in comments" :comment="comment" :thread-owner="thread?.user.uuid === comment.user.uuid" />
+      <CommentItem v-for="comment in comments" :comment="comment"
+        :thread-owner="thread?.user.uuid === comment.user.uuid" />
+      <CommentInput placeholder="Add comment" />
     </div>
     <NoEntryMessage v-else>Be the first to create a comment.</NoEntryMessage>
   </main>
