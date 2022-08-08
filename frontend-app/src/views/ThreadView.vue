@@ -8,6 +8,7 @@ import CommentItem from '@/components/CommentItem.vue'
 import BackButton from '../components/BackButton.vue'
 import NoEntryMessage from '../components/NoEntryMessage.vue'
 import CommentInput from '../components/CommentInput.vue'
+import CommentCounter from '../components/CommentCounter.vue'
 
 const route = useRoute()
 const thread = ref<Thread | null>(null)
@@ -25,9 +26,10 @@ onMounted(async () => {
     <h1 class="flex-row gap-1">
       <div class="heading-text">{{ thread?.title }}</div>
       <BackButton :route-to="thread == null ? '#' : `/topic/${thread.topic.uuid}`"
-        :label="thread == null ? 'ups' : thread.topic.title" />
+        :label="thread == null ? '' : thread.topic.title" />
       <BackButton route-to="/" label="All topics" />
     </h1>
+    <CommentCounter :comments="comments" />
     <div v-if="comments.length > 0" class="comments">
       <CommentItem v-for="comment in comments" :comment="comment"
         :thread-owner="thread?.user.uuid === comment.user.uuid" />
