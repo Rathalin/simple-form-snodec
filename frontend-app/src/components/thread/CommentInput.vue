@@ -18,7 +18,7 @@ input {
   border-width: 0 0 2px 0;
   border-color: var(--c-second);
   border-style: solid;
-  border-radius: 0;
+  border-radius: var(--border-radius-none);
   font-size: 11pt;
   padding: 0.5rem;
 

@@ -3,8 +3,8 @@ import { computed, onMounted, ref } from 'vue'
 import type { Topic } from '@/types/Topic'
 import { apiMockService } from '@/services/api.mock.service'
 import TopicItem from '@/components/TopicItem.vue'
-import NoEntryMessage from '../components/NoEntryMessage.vue'
-import SingleInput from '../components/SingleInput.vue'
+import NoEntryMessage from '@/components/NoEntryMessage.vue'
+import SingleInput from '@/components/SingleInput.vue'
 
 const topics = ref<Topic[]>([])
 

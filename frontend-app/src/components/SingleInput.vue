@@ -24,8 +24,9 @@ function submitInput(): void {
   <div class="input-wrapper flex-col">
     <label v-if="props.inputLabel" for="new-topic">{{ props.inputLabel }}</label>
     <div class="flex-row gap-1">
-      <input v-model="inputText" v-on:focus="inputFocused = true" v-on:blur="inputFocused = false"
-        :placeholder="props.inputPlaceholder" type="text" name="new-topic" id="new-topic" autocomplete="off">
+      <input v-model="inputText" @focus="inputFocused = true" @blur="inputFocused = false" @keydown.enter="submitInput"
+        :placeholder="props.inputPlaceholder" type="text" name="new-topic" id="new-topic" autocomplete="off"
+        class="flex-grow">
       <button v-if="inputFocused || inputText" :disabled="inputText.length === 0" @click="submitInput">
         {{ props.buttonLabel }}
       </button>
@@ -36,9 +37,5 @@ function submitInput(): void {
 <style scoped lang="scss">
 .input-wrapper {
   margin-top: 1em;
-
-  & input {
-    flex: 1;
-  }
 }
 </style>

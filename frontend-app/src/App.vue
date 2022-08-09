@@ -7,16 +7,19 @@ import { RouterLink, RouterView } from 'vue-router'
   <header class="flex-row wrap">
     <!-- <div id="logo">🍰</div> -->
     <nav>
-      <RouterLink to="/">
+      <RouterLink to="/" tabindex="-1">
         <button class="round" type="button">Home</button>
       </RouterLink>
-      <RouterLink to="/registered-users">
+      <RouterLink to="/registered-users" tabindex="-1">
         <button class="round" type="button">Registered Users</button>
       </RouterLink>
-      <RouterLink to="/about">
+      <RouterLink to="/api-debug" tabindex="-1">
+        <button class="round" type="button">API Debug</button>
+      </RouterLink>
+      <RouterLink to="/about" tabindex="-1">
         <button class="round" type="button">About</button>
       </RouterLink>
-      <RouterLink to="/xd">
+      <RouterLink to="/xd" tabindex="-1">
         <button class="round" type="button">🤔</button>
       </RouterLink>
     </nav>
@@ -41,7 +44,6 @@ header {
 .colors {
   background-image: url('./assets/negative-space.jpg');
   background-size: cover;
-  flex: 1;
   animation: gradient-spin 5s ease infinite;
 
 }

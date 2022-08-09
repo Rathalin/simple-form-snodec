@@ -2,7 +2,7 @@
 import type { Thread } from '@/types/Thread'
 import { getDateTimeFromString } from '@/util/date.util'
 import { computed } from '@vue/reactivity';
-import UserLink from './UserLink.vue';
+import UserLink from '@/components/UserLink.vue';
 
 const props = defineProps<{
   thread: Thread,

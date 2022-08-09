@@ -13,9 +13,10 @@
   --duration-normal: 250ms;
   --duration-long: 500ms;
 
-  --border-radius-s: 0.2em;
-  --border-radius-m: 0.3em;
-  --border-radius-l: 0.7em;
+  --border-radius-none: 0;
+  --border-radius-s: 2px;
+  --border-radius-m: 4px;
+  --border-radius-l: 20px;
 
   --icon-size-s: 0.8em;
   --icon-size-m: 1.0em;
@@ -66,6 +67,7 @@ html {
     --c-highlight: hwb(60 51% 0%);
     --c-highlight-dim-1: hwb(60 69% 0%);
 
+    --c-text-error: hwb(0 31% 0%);
     --c-error: hwb(0 9% 43%);
 
     --bg-scrollbar-thumb: hwb(0 90% 10%);

@@ -95,11 +95,15 @@ button {
   }
 
   &:hover,
-  &:focus-visible {
-    &:not([disabled]) {
-      background-color: var(--c-prime-acc-1);
-      cursor: pointer;
-    }
+  &:focus:not([disabled]) {
+    background-color: var(--c-prime-acc-1);
+    cursor: pointer;
+  }
+
+  &:focus-visible:not([disabled]) {
+    outline-color: white;
+    outline-style: solid;
+    outline-width: 2px;
   }
 
   &.round {

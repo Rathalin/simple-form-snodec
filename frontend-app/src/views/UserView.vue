@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { apiMockService } from '@/services/api.mock.service';
+import { apiMockService } from '@/services/api.mock.service'
 import type { User } from '@/types/User'
 import { getDateFromString } from '@/util/date.util'
 import { computed, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router';
-import BackButton from '../components/BackButton.vue';
-import UserThumbnail from '../components/UserThumbnail.vue';
+import { useRoute } from 'vue-router'
+import BackButton from '@/components/BackButton.vue'
+import UserThumbnail from '@/components/UserThumbnail.vue'
 
 const route = useRoute()
 const user = ref<User | null>(null)

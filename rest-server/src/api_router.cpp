@@ -15,6 +15,11 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
 {
     express::Router apiRouter;
 
+    apiRouter.use([] MIDDLEWARE(req, res, next) {
+        res.set("Content-Type", "application/json");
+        next();
+    });
+
     // Example: Access JSON from request body
     apiRouter.post("/example", [] APPLICATION(req, res) {
         req.getAttribute<nlohmann::json>(

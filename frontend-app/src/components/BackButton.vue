@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const router = useRouter()
 defineProps<{

@@ -40,6 +40,11 @@ const router = createRouter({
       component: UserListView,
     },
     {
+      path: '/api-debug',
+      name: 'api-debug',
+      component: () => import('@/views/ApiDebugView.vue'),
+    },
+    {
       path: '/user/:uuid',
       name: 'user',
       component: () => import('@/views/UserView.vue'),

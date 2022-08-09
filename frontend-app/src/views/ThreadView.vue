@@ -4,11 +4,10 @@ import type { Comment } from '@/types/Comment'
 import type { Thread } from '@/types/Thread'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import CommentItem from '@/components/CommentItem.vue'
-import BackButton from '../components/BackButton.vue'
-import NoEntryMessage from '../components/NoEntryMessage.vue'
-import CommentInput from '../components/CommentInput.vue'
-import CommentCounter from '../components/CommentCounter.vue'
+import CommentItem from '@/components/thread/CommentItem.vue'
+import BackButton from '@/components/BackButton.vue'
+import CommentInput from '@/components/thread/CommentInput.vue'
+import CommentCounter from '@/components/thread/CommentCounter.vue'
 
 const route = useRoute()
 const thread = ref<Thread | null>(null)
@@ -30,18 +29,23 @@ onMounted(async () => {
       <BackButton route-to="/" label="All topics" />
     </h1>
     <CommentCounter :comments="comments" />
-    <div v-if="comments.length > 0" class="comments">
-      <CommentItem v-for="comment in comments" :comment="comment"
-        :thread-owner="thread?.user.uuid === comment.user.uuid" />
+    <div class="comment-input-wrapper">
       <CommentInput placeholder="Add comment" />
     </div>
-    <NoEntryMessage v-else>Be the first to create a comment.</NoEntryMessage>
+    <div class="comments">
+      <CommentItem v-for="comment in comments" :comment="comment"
+        :thread-owner="thread?.user.uuid === comment.user.uuid" />
+    </div>
   </main>
 </template>
 
 <style scoped lang="scss">
-.comments {
+.comment-input-wrapper {
   margin-top: 1em;
+}
+
+.comments {
+  margin-top: 2em;
   display: flex;
   flex-direction: column;
   gap: 1em;

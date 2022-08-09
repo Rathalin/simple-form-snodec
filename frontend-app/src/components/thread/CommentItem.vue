@@ -2,8 +2,8 @@
 import type { Comment } from '@/types/Comment'
 import { computed } from 'vue'
 import { getDateTimeFromString } from '@/util/date.util'
-import UserLink from './UserLink.vue'
-import UserThumbnail from './UserThumbnail.vue'
+import UserLink from '@/components/UserLink.vue'
+import UserThumbnail from '@/components/UserThumbnail.vue'
 
 const props = defineProps<{
   comment: Comment

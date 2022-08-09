@@ -26,13 +26,21 @@
   }
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .gap-1 {
   gap: 1em;
 }
 
+.row {
+  margin-bottom: 1em;
+}
+
 .card {
   background-color: var(--c-second);
-  border-radius: var(--border-radius-m);
+  border-radius: var(--border-radius-s);
   padding: .5em 1.5em 1em 1.5em;
   transition-property: background-color;
   transition-duration: var(--duration-short);
