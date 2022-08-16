@@ -8,6 +8,7 @@ import CommentItem from '@/components/thread/CommentItem.vue'
 import BackButton from '@/components/BackButton.vue'
 import CommentInput from '@/components/thread/CommentInput.vue'
 import CommentCounter from '@/components/thread/CommentCounter.vue'
+import CreatedInfo from '../components/CreatedInfo.vue'
 
 const route = useRoute()
 const thread = ref<Thread | null>(null)
@@ -22,11 +23,18 @@ onMounted(async () => {
 
 <template>
   <main class="container">
-    <h1 class="flex-row gap-1">
-      <div class="heading-text">{{ thread?.title }}</div>
-      <BackButton :route-to="thread == null ? '#' : `/topic/${thread.topic.uuid}`"
-        :label="thread == null ? '' : thread.topic.title" />
-      <BackButton route-to="/" label="All topics" />
+    <h1 v-if="thread != null" class="heading flex-row gap-1">
+      <div class="flex-col">
+        <div class="heading-text">{{ thread.title }}</div>
+        <CreatedInfo :user="thread.user" :created-at="thread.created_at" />
+      </div>
+      <div class="back-button">
+        <BackButton :route-to="thread == null ? '#' : `/topic/${thread.topic.uuid}`"
+          :label="thread == null ? '' : thread.topic.title" />
+      </div>
+      <div class="back-button">
+        <BackButton route-to="/" label="All topics" />
+      </div>
     </h1>
     <CommentCounter :comments="comments" />
     <div class="comment-input-wrapper">
@@ -40,6 +48,19 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+.heading {
+  margin-block: 1em;
+  align-items: flex-start;
+
+  & .back-button {
+    margin-top: 0.2em;
+  }
+}
+
+.heading-text {
+  line-height: 1em;
+}
+
 .comment-input-wrapper {
   margin-top: 1em;
 }

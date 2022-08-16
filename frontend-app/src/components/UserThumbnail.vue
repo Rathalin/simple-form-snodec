@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { User } from '@/types/User';
-import { computed } from 'vue';
+import type { User } from '@/types/User'
+import { computed } from 'vue'
 
 const props = defineProps<{
   user: User

@@ -51,8 +51,9 @@ header {
 nav {
   padding: 0.5em;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1em;
   width: 100%;
@@ -69,6 +70,12 @@ nav {
       &:hover {
         background-color: var(--c-back-acc-1);
       }
+    }
+  }
+
+  @media screen and (min-width: 200px) {
+    & {
+      flex-direction: row;
     }
   }
 }

@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router'
 import type { Topic } from '@/types/Topic'
 import BackButton from '@/components/BackButton.vue'
 import NoEntryMessage from '@/components/NoEntryMessage.vue'
+import CreatedInfo from '../components/CreatedInfo.vue'
 
 const route = useRoute()
 const topic = ref<Topic | null>(null)
@@ -22,9 +23,15 @@ onMounted(async () => {
 
 <template>
   <main class="container">
-    <h1 class="flex-row gap-1">
-      <div class="heading-text">{{ topic?.title }}</div>
-      <BackButton route-to="/" label="All topics" />
+    <h1 v-if="topic != null" class="heading flex-row gap-1">
+      <div class="flex-col">
+        <div class="heading-text">{{ topic.title }}</div>
+        <div class="description">{{ topic.description }}</div>
+        <CreatedInfo :user="topic.user" :created-at="topic.created_at" />
+      </div>
+      <div class="back-button">
+        <BackButton route-to="/" label="All topics" />
+      </div>
     </h1>
     <div v-if="threads.length > 0" class="threads">
       <ThreadItem v-for="thread in threads" :thread="thread" />
@@ -34,6 +41,24 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
+.heading {
+  margin-block: 1em;
+  align-items: flex-start;
+
+  & .back-button {
+    margin-top: 0.2em;
+  }
+}
+
+.heading-text {
+  line-height: 1em;
+}
+
+.description {
+  font-size: 1rem;
+  margin-block: 0;
+}
+
 .threads {
   margin-top: 1em;
   display: flex;

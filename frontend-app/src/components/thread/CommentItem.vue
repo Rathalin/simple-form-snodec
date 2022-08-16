@@ -11,7 +11,6 @@ const props = defineProps<{
 }>()
 
 const created_at = computed(() => getDateTimeFromString(props.comment.created_at))
-
 </script>
 
 <template>

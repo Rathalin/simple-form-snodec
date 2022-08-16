@@ -15,17 +15,13 @@ onMounted(async () => {
 function onCreateTopic(input: string): void {
   window.alert(`TODO: Implement creation of topic '${input}'`)
 }
-
 </script>
 
 <template>
   <main class="container">
-    <h1>
-      <div class="heading-text">Topics 🍴</div>
-    </h1>
+    <h1 class="heading-text">Topics 🍴</h1>
 
-    <SingleInput input-placeholder="Create a topic" button-label="Create"
-      @submit-input="onCreateTopic" />
+    <SingleInput input-placeholder="Create a topic" button-label="Create" @submit-input="onCreateTopic" />
 
     <div v-if="topics.length > 0" class="topics">
       <TopicItem v-for="topic in topics" :topic="topic" />
