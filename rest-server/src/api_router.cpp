@@ -61,6 +61,28 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
             });
     });
 
+    // Example: Database View
+    apiRouter.get("/topic", [&db] APPLICATION(req, res) {
+        json* usersJson = new json;
+        db.query(
+            "select * from view_topics",
+            [&res, usersJson](const MYSQL_ROW row) -> void {
+                if (row != nullptr) {
+                    usersJson->push_back({ { "uuid", row[0] },
+                        { "title", row[1] },
+                        { "description", row[2] },
+                        { "created_at", row[3] },
+                        { "user", { { "uuid", row[4] }, { "username", row[5] }, { "color_hex", row[6] }, { "email", row[7] }, { "created_at", row[8] } } } });
+                } else {
+                    res.send(usersJson->dump(4));
+                    delete usersJson;
+                }
+            },
+            [&res](const std::string& errorString, unsigned int errorNumber) -> void {
+                handleDbError(res, errorString, errorNumber);
+            });
+    });
+
     // Example: Check user passsword
     apiRouter.post("/login", [&db] APPLICATION(req, res) {
         req.getAttribute<nlohmann::json>(
