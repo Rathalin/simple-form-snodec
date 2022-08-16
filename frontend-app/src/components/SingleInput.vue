@@ -38,4 +38,8 @@ function submitInput(): void {
 .input-wrapper {
   margin-top: 1em;
 }
+
+input, button {
+  box-shadow: var(--shadow-second);
+}
 </style>

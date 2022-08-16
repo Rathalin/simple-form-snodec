@@ -20,6 +20,15 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
         next();
     });
 
+    // Example: JSON as response
+    apiRouter.get("/example", [] APPLICATION(req, res) {
+        json arrayJson = { { { "email", "alois.dimpfelmoser@polizei.de" } },
+            { { "email", "seppl.schubert@gmx.com" } },
+            { { "email", "kasperl.schubert@gmx.com" } } };
+        // dump(4) = JSON to string with 4 spaces indentation
+        res.send(arrayJson.dump(4));
+    });
+
     // Example: Access JSON from request body
     apiRouter.post("/example", [] APPLICATION(req, res) {
         req.getAttribute<nlohmann::json>(
@@ -31,15 +40,6 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
             [&res]([[maybe_unused]] const std::string& key) -> void {
                 res.sendStatus(500);
             });
-    });
-
-    // Example: JSON as response
-    apiRouter.get("/example", [] APPLICATION(req, res) {
-        json arrayJson = { { { "email", "alois.dimpfelmoser@polizei.de" } },
-            { { "email", "seppl.schubert@gmx.com" } },
-            { { "email", "kasperl.schubert@gmx.com" } } };
-        // dump(4) = JSON to string with 4 spaces indentation
-        res.send(arrayJson.dump(4));
     });
 
     // Example: Database
@@ -64,13 +64,13 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
     // Example: Check user passsword
     apiRouter.post("/login", [&db] APPLICATION(req, res) {
         req.getAttribute<nlohmann::json>(
-            [&req, &res, &db](nlohmann::json& body) -> void {
+            [&res, &db](nlohmann::json& body) -> void {
                 db.query(
                     "select count(*) "
                     "from user_account "
                     "where email = '"
                         + string { body["email"] } + "'",
-                    [&req, &res, &db, &body](const MYSQL_ROW row) -> void {
+                    [&res, &db, &body](const MYSQL_ROW row) -> void {
                         if (row != nullptr) {
                             int count { stoi(row[0]) };
                             if (count == 1) {

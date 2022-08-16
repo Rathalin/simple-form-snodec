@@ -4,11 +4,12 @@ import type { User } from '@/types/User'
 import { onMounted, ref } from 'vue'
 import UserThumbnail from '../components/UserThumbnail.vue'
 import UserLink from '../components/UserLink.vue'
+import { apiService } from '@/services/api.service'
 
 const users = ref<User[]>([])
 
 onMounted(async () => {
-  users.value = await apiMockService.getUsers()
+  users.value = await apiService.getUsers()
 })
 </script>
 

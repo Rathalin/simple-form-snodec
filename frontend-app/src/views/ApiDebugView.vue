@@ -40,7 +40,7 @@ async function onUrlInput(url: string) {
 <template>
   <main class="container">
     <h1>API Debug</h1>
-    <UrlInput :api-url="API_URL" input-placeholder="api/users" button-label="Get" v-on:request="onUrlInput" />
+    <UrlInput :api-url="API_URL" input-placeholder="api/users" button-label="GET" v-on:request="onUrlInput" />
     <h2>{{ response.url ? `Response for '${response.url}':` : 'Response:' }}</h2>
     <div class="response card no-hover">
       <div v-if="response.data">{{ response.data }}</div>

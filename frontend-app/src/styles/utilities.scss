@@ -44,7 +44,7 @@
   padding: .5em 1.5em 1em 1.5em;
   transition-property: background-color;
   transition-duration: var(--duration-short);
-  box-shadow: var(--shadow-prime);
+  box-shadow: var(--shadow-second);
 
   &:hover:not(.no-hover) {
     background-color: var(--c-second-acc-1);
