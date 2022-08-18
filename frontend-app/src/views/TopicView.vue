@@ -22,22 +22,20 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="container">
-    <h1 v-if="topic != null" class="heading flex-row gap-1">
-      <div class="flex-col">
-        <div class="heading-text">{{ topic.title }}</div>
-        <div class="description">{{ topic.description }}</div>
-        <CreatedInfo :user="topic.user" :created-at="topic.created_at" />
-      </div>
-      <div class="back-button">
-        <BackButton route-to="/" label="All topics" />
-      </div>
-    </h1>
-    <div v-if="threads.length > 0" class="threads">
-      <ThreadItem v-for="thread in threads" :thread="thread" />
+  <h1 v-if="topic != null" class="heading flex-row gap-1">
+    <div class="flex-col">
+      <div class="heading-text">{{ topic.title }}</div>
+      <div class="description">{{ topic.description }}</div>
+      <CreatedInfo :user="topic.user" :created-at="topic.created_at" />
     </div>
-    <NoEntryMessage v-else>Be the first to create a thread.</NoEntryMessage>
-  </main>
+    <div class="back-button">
+      <BackButton route-to="/" label="All topics" />
+    </div>
+  </h1>
+  <div v-if="threads.length > 0" class="threads">
+    <ThreadItem v-for="thread in threads" :thread="thread" />
+  </div>
+  <NoEntryMessage v-else>Be the first to create a thread.</NoEntryMessage>
 </template>
 
 <style scoped lang="scss">

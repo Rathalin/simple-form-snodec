@@ -22,29 +22,27 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="container">
-    <h1 v-if="thread != null" class="heading flex-row gap-1">
-      <div class="flex-col">
-        <div class="heading-text">{{ thread.title }}</div>
-        <CreatedInfo :user="thread.user" :created-at="thread.created_at" />
-      </div>
-      <div class="back-button">
-        <BackButton :route-to="thread == null ? '#' : `/topic/${thread.topic.uuid}`"
-          :label="thread == null ? '' : thread.topic.title" />
-      </div>
-      <div class="back-button">
-        <BackButton route-to="/" label="All topics" />
-      </div>
-    </h1>
-    <CommentCounter :comments="comments" />
-    <div class="comment-input-wrapper">
-      <CommentInput placeholder="Add comment" />
+  <h1 v-if="thread != null" class="heading flex-row gap-1">
+    <div class="flex-col">
+      <div class="heading-text">{{ thread.title }}</div>
+      <CreatedInfo :user="thread.user" :created-at="thread.created_at" />
     </div>
-    <div class="comments">
-      <CommentItem v-for="comment in comments" :comment="comment"
-        :thread-owner="thread?.user.uuid === comment.user.uuid" />
+    <div class="back-button">
+      <BackButton :route-to="thread == null ? '#' : `/topic/${thread.topic.uuid}`"
+        :label="thread == null ? '' : thread.topic.title" />
     </div>
-  </main>
+    <div class="back-button">
+      <BackButton route-to="/" label="All topics" />
+    </div>
+  </h1>
+  <CommentCounter :comments="comments" />
+  <div class="comment-input-wrapper">
+    <CommentInput placeholder="Add comment" />
+  </div>
+  <div class="comments">
+    <CommentItem v-for="comment in comments" :comment="comment"
+      :thread-owner="thread?.user.uuid === comment.user.uuid" />
+  </div>
 </template>
 
 <style scoped lang="scss">

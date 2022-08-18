@@ -14,19 +14,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="container">
-    <h1>Registered users</h1>
-    <div class="card no-hover">
-      <ol>
-        <li v-for="user of users" :key="user.uuid">
-          <div class="flex-row no-wrap gap-1">
-            <UserThumbnail :user="user" />
-            <UserLink :user="user" />
-          </div>
-        </li>
-      </ol>
-    </div>
-  </main>
+  <h1>Registered users</h1>
+  <div class="card no-hover">
+    <ol>
+      <li v-for="user of users" :key="user.uuid">
+        <div class="flex-row no-wrap gap-1">
+          <UserThumbnail :user="user" />
+          <UserLink :user="user" />
+        </div>
+      </li>
+    </ol>
+  </div>
 </template>
 
 <style scoped lang="scss">

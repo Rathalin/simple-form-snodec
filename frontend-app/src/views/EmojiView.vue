@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <main class="container flex-row">
+  <div class="flex-row">
     <div class="flex-col">
       <div class="emoji">
         <div class="hat">👒</div>
@@ -11,11 +11,11 @@
         <div class="body">🧜</div>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <style scoped lang="scss">
-main.flex-row {
+.flex-row {
   justify-content: center;
 }
 

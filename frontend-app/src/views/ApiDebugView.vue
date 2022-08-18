@@ -38,19 +38,17 @@ async function onUrlInput(url: string) {
 </script>
 
 <template>
-  <main class="container">
-    <h1>API Debug</h1>
-    <UrlInput :api-url="API_URL" input-placeholder="api/users" button-label="GET" v-on:request="onUrlInput" />
-    <h2>{{ response.url ? `Response for '${response.url}':` : 'Response:' }}</h2>
-    <div class="response card no-hover">
-      <div v-if="response.data">{{ response.data }}</div>
-      <div v-if="response.error" class="error flex-col">
-        <div>{{ response.error.name }}</div>
-        <div>{{ response.error.message }}</div>
-        <div>{{ response.error.stack }}</div>
-      </div>
+  <h1>API Debug</h1>
+  <UrlInput :api-url="API_URL" input-placeholder="api/users" button-label="GET" v-on:request="onUrlInput" />
+  <h2>{{ response.url ? `Response for '${response.url}':` : 'Response:' }}</h2>
+  <div class="response card no-hover">
+    <div v-if="response.data">{{ response.data }}</div>
+    <div v-if="response.error" class="error flex-col">
+      <div>{{ response.error.name }}</div>
+      <div>{{ response.error.message }}</div>
+      <div>{{ response.error.stack }}</div>
     </div>
-  </main>
+  </div>
 </template>
 
 <style scoped lang="scss">

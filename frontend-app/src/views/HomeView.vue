@@ -24,16 +24,12 @@ async function onCreateTopic(input: string): Promise<void> {
 </script>
 
 <template>
-  <main class="container">
-    <h1 class="heading-text">Topics 🍴</h1>
-
-    <SingleInput input-placeholder="Create a topic" button-label="Create" @submit-input="onCreateTopic" />
-
-    <div v-if="topics.length > 0" class="topics">
-      <TopicItem v-for="topic in topics" :topic="topic" />
-    </div>
-    <NoEntryMessage v-else>No topics yet? Be the first to create one!</NoEntryMessage>
-  </main>
+  <h1 class="heading-text">Topics 🍴</h1>
+  <SingleInput input-placeholder="Create a topic" button-label="Create" @submit-input="onCreateTopic" />
+  <div v-if="topics.length > 0" class="topics">
+    <TopicItem v-for="topic in topics" :topic="topic" />
+  </div>
+  <NoEntryMessage v-else>No topics yet? Be the first to create one!</NoEntryMessage>
 </template>
 
 <style scoped lang="scss">

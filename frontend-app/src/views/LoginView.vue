@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <h1>LOGIN WORKS 123 </h1>
+  <h1>LOGIN WORKS 😎</h1>
 </template>
 
 <style scoped lang="scss">
