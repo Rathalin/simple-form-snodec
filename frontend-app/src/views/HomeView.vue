@@ -9,11 +9,17 @@ import SingleInput from '@/components/SingleInput.vue'
 const topics = ref<Topic[]>([])
 
 onMounted(async () => {
-  topics.value = await apiMockService.getTopics()
+  await loadTopics()
 })
 
-function onCreateTopic(input: string): void {
-  window.alert(`TODO: Implement creation of topic '${input}'`)
+async function loadTopics(): Promise<void> {
+  topics.value = await apiMockService.getTopics()
+}
+
+async function onCreateTopic(input: string): Promise<void> {
+  // TODO: Create topic apiMockService.createTopic()
+
+  await loadTopics()
 }
 </script>
 

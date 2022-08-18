@@ -34,6 +34,13 @@ class ApiMockService {
       color_hex: '#4c6134',
       created_at: '2017-09-25 03:00:00',
     },
+    {
+      uuid: '7fea61b2-0b74-11ed-9873-08002771075f',
+      username: 'Phil Toolan 🍀',
+      email: 'kasperl.wimmer@tum.de',
+      color_hex: '#1da50b',
+      created_at: '2022-08-18 10:40:01',
+    },
   ]
 
   private readonly topics: Topic[] = [
@@ -136,40 +143,80 @@ class ApiMockService {
     },
   ]
 
-  async getUsers() {
-    return this.users
+  private demoUser: User = this.users[4]
+
+  private now(): string {
+    return new Date().toISOString()
   }
 
-  async getUserByUUID(uuid: string) {
-    return this.users.find(user => user.uuid == uuid) ?? null
+  private getNewUuid(): string {
+    return self.crypto?.randomUUID() ?? `UUID${new Date().getTime()}`
   }
 
-  async getTopics() {
-    return this.topics
+  async getUsers(): Promise<User[]> {
+    return structuredClone(this.users)
   }
 
-  async getTopicByUUID(uuid: string) {
-    return this.topics.find(topic => topic.uuid === uuid) ?? null
+  async getUserByUUID(uuid: string): Promise<User | null> {
+    return structuredClone(this.users.find(user => user.uuid == uuid) ?? null)
   }
 
-  async getThreads() {
-    return this.threads
+  async getTopics(): Promise<Topic[]> {
+    return structuredClone(this.topics)
   }
 
-  async getThreadByUUID(uuid: string) {
-    return this.threads.find(thread => thread.uuid === uuid) ?? null
+  async getTopicByUUID(uuid: string): Promise<Topic | null> {
+    return structuredClone(this.topics.find(topic => topic.uuid === uuid) ?? null)
   }
 
-  async getThreadsByTopicUUID(uuid: string) {
-    return this.threads.filter(thread => thread.topic.uuid === uuid)
+  async createTopic(title: string, description: string): Promise<void> {
+    this.topics.push({
+      uuid: this.getNewUuid(),
+      title,
+      description,
+      created_at: this.now(),
+      user: this.demoUser,
+    })
   }
 
-  async getComments() {
-    return this.comments
+  async getThreadByUUID(uuid: string): Promise<Thread | null> {
+    return structuredClone(this.threads.find(thread => thread.uuid === uuid) ?? null)
   }
 
-  async getCommentsByThreadUuid(uuid: string) {
-    return this.comments.filter(comment => comment.thread.uuid === uuid)
+  async createThread(title: string, topicUuid: string): Promise<void> {
+    const topic = await this.getTopicByUUID(topicUuid)
+    if (topic == null) {
+      throw new Error(`Topic with uuid '${topicUuid}' not found.`)
+    }
+    this.threads.push({
+      uuid: this.getNewUuid(),
+      title,
+      topic,
+      created_at: this.now(),
+      user: this.demoUser,
+    })
+  }
+
+  async getThreadsByTopicUUID(uuid: string): Promise<Thread[]> {
+    return structuredClone(this.threads.filter(thread => thread.topic.uuid === uuid))
+  }
+
+  async getCommentsByThreadUuid(uuid: string): Promise<Comment[]> {
+    return structuredClone(this.comments.filter(comment => comment.thread.uuid === uuid))
+  }
+
+  async createComment(content: string, threadUuid: string): Promise<void> {
+    const thread = await this.getThreadByUUID(threadUuid)
+    if (thread == null) {
+      throw new Error(`Thread with uuid '${threadUuid}' not found.`)
+    }
+    this.comments.push({
+      uuid: this.getNewUuid(),
+      content,
+      created_at: this.now(),
+      thread,
+      user: this.demoUser,
+    })
   }
 
 }
