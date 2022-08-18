@@ -37,8 +37,8 @@ class ApiMockService {
     {
       uuid: '7fea61b2-0b74-11ed-9873-08002771075f',
       username: 'Phil Toolan 🍀',
-      email: 'kasperl.wimmer@tum.de',
-      color_hex: '#1da50b',
+      email: 'philtoolan@gmail.com',
+      color_hex: '#d31717',
       created_at: '2022-08-18 10:40:01',
     },
   ]

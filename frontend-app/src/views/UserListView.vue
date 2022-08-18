@@ -9,7 +9,7 @@ import { apiService } from '@/services/api.service'
 const users = ref<User[]>([])
 
 onMounted(async () => {
-  users.value = await apiService.getUsers()
+  users.value = await apiMockService.getUsers()
 })
 </script>
 
