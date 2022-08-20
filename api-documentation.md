@@ -1,12 +1,14 @@
 # REST API Documentation
 
 ## Get all topics
+Selects all topics and their users.
 ### Request
-```HTTP
+```
 GET /topic
 ```
 ### Response
-```TypeScript
+#### 200 OK
+```ts
 [
   {
     uuid: string
@@ -21,13 +23,15 @@ GET /topic
 ]
 ```
 
-## Get all thread of topic
+## Get topic with all threads
+Selects a topic and its threads. The parameter **uuid** has to match the uuid of the topic.
 ### Request
-```HTTP
-GET /topic/:id
+```
+GET /topic/:uuid
 ```
 ### Response
-```TypeScript
+#### 200 OK
+```ts
 {
   uuid: string
   title: string
@@ -51,49 +55,126 @@ GET /topic/:id
   ]
 }
 ```
+#### 400 Bad Request
+When param **uuid** is missing.
+#### 404 Not Found
+When **uuid** doesn't exist.
 
-<!-- ## Schemas
-
-### User
-```TypeScript
-interface User {
-  uuid: string
-  username: string
-  color_hex: string
-  email: string
-  created_at: string
+## Create topic
+Creates a topic. Responds with the newly created topic.
+### Request
+```
+POST /topic
+```
+```ts
+{
+  title: string
+  description: string
 }
 ```
-
-### Topic
-```TypeScript
-interface Topic {
+### Response
+#### 200 OK
+```ts
+{
   uuid: string
   title: string
   description: string
   created_at: string
-  user: User
+  user: {
+    uuid: string
+    username: string
+    color_hex: string
+  }
 }
 ```
+#### 400 Bad Request
+When body params **title**, **description** are missing.
 
-### Thread
-```TypeScript
-interface Thread {
+## Get thread with all comments
+Responds with a thread and its comments. The parameter **uuid** has to match the uuid of the thread.
+### Request
+```
+GET /thread/:uuid
+```
+### Response
+#### 200 OK
+```ts
+{
   uuid: string
   title: string
   created_at: string
-  topic: Topic
-  user: User
+  user: {
+    uuid: string
+    username: string
+    color_hex: string
+  },
+  comments: [
+    {
+      uuid: string
+      content: string
+      created_at: string
+      thread: Thread
+      user: User
+    }
+  ]
 }
 ```
+#### 400 Bad Request
+When params **uuid** is missing
+#### 404 Not Found
+When **uuid** doesn't exist
 
-### Comment
-```TypeScript
-interface Comment {
+## Create thread
+Creates a thread. Responds with the newly created thread.
+### Request
+```
+POST /thread
+```
+```ts
+{
+  title: string
+}
+```
+### Response
+#### 200 OK
+```ts
+{
+  uuid: string
+  title: string
+  created_at: string
+  user: {
+    uuid: string
+    username: string
+    color_hex: string
+  }
+}
+```
+#### 400 Bad Request
+When body param **title** is missing.
+
+## Create comment
+Creates a comment. Responds with the newly created comment.
+### Request
+```
+POST /comment
+```
+```ts
+{
+  content: string
+}
+```
+### Response
+#### 200 OK
+```ts
+{
   uuid: string
   content: string
-  created_at: string
-  thread: Thread
-  user: User
+  user: {
+    uuid: string
+    username: string
+    color_hex: string
+  }
 }
-``` -->
+```
+#### 400 Bad Request
+When body param **content** is missing.
