@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import HeaderProfile from './components/HeaderProfile.vue'
+
 
 </script>
 
 <template>
-  <header class="flex-row wrap">
-    <!-- <div id="logo">🍰</div> -->
+  <header class="header-content flex-row wrap">
+    <HeaderProfile />
+    <span class="separator"></span>
     <nav>
       <RouterLink to="/" tabindex="-1">
         <button class="round" type="button">Home</button>
@@ -36,11 +39,15 @@ import { RouterLink, RouterView } from 'vue-router'
 header {
   box-shadow: var(--shadow-prime);
   background-color: var(--c-back-dim-1);
-}
+  justify-content: center;
+  gap: 1.6em;
 
-#logo {
-  justify-self: flex-start;
-  padding-inline: 1em;
+  .separator {
+    height: 1.5em;
+    border-width: 0 0 0 1px;
+    border-color: var(--c-back-acc-2);
+    border-style: solid;
+  }
 }
 
 .colors {
@@ -58,7 +65,6 @@ nav {
   flex-wrap: wrap;
   align-items: center;
   gap: 1em;
-  width: 100%;
 
   a {
     &:first-of-type {

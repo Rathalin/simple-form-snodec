@@ -3,16 +3,15 @@ import type { User } from '@/types/User'
 import { computed } from 'vue'
 
 const props = defineProps<{
-  user: User
+  user: User,
+  disableLink?: boolean,
 }>()
 
 const firstLetter = computed(() => props.user.username.charAt(0).toLocaleUpperCase())
 </script>
 
 <template>
-  <RouterLink :to="`/user/${user.uuid}`">
-    <div class="thumbnail" :style="{ 'background-color': user.color_hex }">{{ firstLetter }}</div>
-  </RouterLink>
+  <div class="thumbnail" :style="{ 'background-color': user.color_hex }">{{ firstLetter }}</div>
 </template>
 
 <style scoped lang="scss">

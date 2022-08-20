@@ -143,7 +143,7 @@ class ApiMockService {
     },
   ]
 
-  private demoUser: User = this.users[4]
+  public demoUser: User = this.users[4]
 
   private now(): string {
     return new Date().toISOString()

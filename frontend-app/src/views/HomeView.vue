@@ -18,6 +18,7 @@ async function loadTopics(): Promise<void> {
 
 async function onCreateTopic(input: string): Promise<void> {
   // TODO: Create topic apiMockService.createTopic()
+  apiMockService.createTopic(input, '')
 
   await loadTopics()
 }
