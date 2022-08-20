@@ -7,13 +7,14 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-  <div class="wrapper">
-    <UserThumbnail :user="authStore.user" tabindex="1" />
-    <div class="menu card flex-col no-hover" tabindex="1">
-      <div>{{ authStore.user.email }}</div>
-      <div>{{ authStore.user.username }}</div>
+  <RouterLink :to="`/user/${authStore.user.uuid}`">
+    <div class="wrapper">
+      <UserThumbnail :user="authStore.user" tabindex="1" />
+      <div class="menu card flex-col no-hover" tabindex="1">
+        <div>{{ authStore.user.username }}</div>
+      </div>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <style scoped lang="scss">
@@ -37,6 +38,10 @@ const authStore = useAuthStore()
   transition-duration: 300ms;
   padding: 0.6em;
   gap: 0.6em;
+
+  &>div {
+    white-space: pre;
+  }
 
   &::before,
   &::after {
