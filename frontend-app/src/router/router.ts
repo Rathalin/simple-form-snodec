@@ -59,6 +59,11 @@ const router = createRouter({
       name: 'xd',
       component: () => import('@/views/EmojiView.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'page-not-found',
+      component: () => import('@/views/NotFoundView.vue'),
+    }
   ]
 })
 

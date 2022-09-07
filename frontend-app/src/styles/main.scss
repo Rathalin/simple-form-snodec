@@ -87,6 +87,7 @@ button {
   color: var(--c-text-dark);
   background-color: var(--c-prime);
   font-weight: var(--font-weight-normal);
+  font-family: var(--font-second);
 
   &:hover:not([disabled]) {
     cursor: pointer;
