@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth-store'
-import { ref } from 'vue'
 import UserThumbnail from './UserThumbnail.vue'
 
 const authStore = useAuthStore()
+
+async function logout() {
+  await authStore.demoLogout()
+}
 </script>
 
 <template>
-  <RouterLink :to="`/user/${authStore.user.uuid}`">
-    <div class="wrapper">
-      <UserThumbnail :user="authStore.user" tabindex="1" />
-      <div class="menu card flex-col no-hover" tabindex="1">
-        <div>{{ authStore.user.username }}</div>
+  <template v-if="authStore.user != null">
+    <RouterLink :to="`/user/${authStore.user.uuid}`">
+      <div class="wrapper">
+        <UserThumbnail :user="authStore.user" tabindex="1" />
+        <div class="menu card flex-col no-hover" tabindex="1">
+          <div>{{ authStore.user.username }}</div>
+          <button @click="logout()">Logout</button>
+        </div>
       </div>
-    </div>
-  </RouterLink>
+    </RouterLink>
+  </template>
 </template>
 
 <style scoped lang="scss">
