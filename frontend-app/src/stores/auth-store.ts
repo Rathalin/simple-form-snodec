@@ -19,18 +19,22 @@ export const useAuthStore = defineStore('user', {
   actions: {
     login(email: string, password: string) {
       // TODO Login with apiService
+      throw new Error(`Not implemented`)
     },
     async demoLogin(email: string) {
-      this.user = {
-        uuid: crypto.randomUUID(),
-        email,
-        username: email,
-        created_at: new Date().toDateString(),
-        color_hex: '#4caf50',
+      const response = await apiMockService.login(email)
+      if (response.user != null) {
+        this.user = response.user
+        await this.router.push('/')
+      } else {
+        return response.error
       }
-      await this.router.push('/')
     },
     async demoLogout() {
+      if (this.user == null) {
+        throw new Error(`Can't logout with 'user' being 'null'`)
+      }
+      await apiMockService.logout(this.user)      
       this.user = null
       await this.router.push('/login')
     },

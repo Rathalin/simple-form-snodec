@@ -72,13 +72,13 @@ router.beforeEach((to, from) => {
   if (!auth.isAuthenticated) {
     if (to.name !== 'login') {
       return {
-        name: 'login'
+        path: 'login',
       }
     }
   } else {
     if (to.name === 'login') {
       return {
-        name: 'home'
+        name: 'home',
       }
     }
   }

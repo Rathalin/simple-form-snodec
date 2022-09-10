@@ -5,7 +5,9 @@ import { apiMockService } from '@/services/api.mock.service'
 import TopicItem from '@/components/TopicItem.vue'
 import NoEntryMessage from '@/components/NoEntryMessage.vue'
 import SingleInput from '@/components/SingleInput.vue'
+import { useAuthStore } from '@/stores/auth-store'
 
+const authStore = useAuthStore()
 const topics = ref<Topic[]>([])
 
 onMounted(async () => {
@@ -17,8 +19,11 @@ async function loadTopics(): Promise<void> {
 }
 
 async function onCreateTopic(input: string): Promise<void> {
-  // TODO: Create topic apiMockService.createTopic()
-  apiMockService.createTopic(input, '')
+  if (authStore.user == null) {
+    throw new Error(`Can't create a topic when 'user' of 'authStore' is null.`)
+  }
+  // TODO: Create topic with description
+  apiMockService.createTopic(input, '', authStore.user)
 
   await loadTopics()
 }

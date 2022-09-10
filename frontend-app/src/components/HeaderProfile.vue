@@ -16,7 +16,7 @@ async function logout() {
         <UserThumbnail :user="authStore.user" tabindex="1" />
         <div class="menu card flex-col no-hover" tabindex="1">
           <div>{{ authStore.user.username }}</div>
-          <button @click="logout()">Logout</button>
+          <button class="round" @click="logout()">Logout</button>
         </div>
       </div>
     </RouterLink>
@@ -43,6 +43,7 @@ async function logout() {
   transition-property: display;
   transition-duration: 300ms;
   padding: 0.6em;
+  align-items: center;
   gap: 0.6em;
   right: 0;
 
