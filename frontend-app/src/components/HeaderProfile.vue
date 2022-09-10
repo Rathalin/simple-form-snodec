@@ -44,6 +44,7 @@ async function logout() {
   transition-duration: 300ms;
   padding: 0.6em;
   gap: 0.6em;
+  right: 0;
 
   &>div {
     white-space: pre;
@@ -58,7 +59,7 @@ async function logout() {
 
   &::before {
     top: -20px;
-    left: 9px;
+    right: 9px;
     border: 10px solid transparent;
     border-bottom-color: var(--c-second-acc-2);
     z-index: 11;
@@ -66,7 +67,7 @@ async function logout() {
 
   &::after {
     top: -16px;
-    left: 11px;
+    right: 11px;
     border: 8px solid transparent;
     border-bottom-color: var(--c-second-acc-1);
     z-index: 12;
