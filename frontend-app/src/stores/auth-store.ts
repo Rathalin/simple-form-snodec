@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('user', {
       if (this.user == null) {
         throw new Error(`Can't logout with 'user' being 'null'`)
       }
-      await apiMockService.logout(this.user)      
+      await apiMockService.logout(this.user)
       this.user = null
       await this.router.push('/login')
     },

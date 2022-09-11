@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth-store'
+import { ref } from 'vue';
 import UserThumbnail from './UserThumbnail.vue'
 
 const authStore = useAuthStore()
+const menuOpen = ref(false)
+
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
+}
 
 async function logout() {
   await authStore.demoLogout()
@@ -11,41 +17,64 @@ async function logout() {
 
 <template>
   <template v-if="authStore.user != null">
-    <RouterLink :to="`/user/${authStore.user.uuid}`">
-      <div class="wrapper">
-        <UserThumbnail :user="authStore.user" tabindex="1" />
-        <div class="menu card flex-col no-hover" tabindex="1">
-          <div>{{ authStore.user.username }}</div>
-          <button class="round" @click="logout()">Logout</button>
-        </div>
-      </div>
-    </RouterLink>
+    <div class="wrapper" tabindex="0" @keydown.enter.self="toggleMenu">
+      <UserThumbnail :user="authStore.user" @click.self="toggleMenu" />
+      <ul v-if="menuOpen" class="menu card flex-col no-hover">
+        <li class="no-click">Signed in as <strong tabindex="0">{{ authStore.user.username }}</strong></li>
+        <li>
+          <RouterLink :to="`/user/${authStore.user.uuid}`">
+            Profile
+          </RouterLink>
+        </li>
+        <li @click="logout" @keydown.enter="logout">
+          <span tabindex="0">Logout</span>
+        </li>
+      </ul>
+    </div>
   </template>
 </template>
 
 <style scoped lang="scss">
 .wrapper {
   cursor: pointer;
+  z-index: 1;
+}
 
-  &:hover .menu {
-    display: flex;
-  }
+.round-link {
+  border-radius: 50%;
 }
 
 .menu {
-  display: none;
   background-color: var(--c-second-acc-1);
   position: absolute;
+  right: 0;
   z-index: 10;
   border-color: var(--c-second-acc-2);
   border-width: 1px;
   border-style: solid;
   transition-property: display;
   transition-duration: 300ms;
-  padding: 0.6em;
-  align-items: center;
-  gap: 0.6em;
-  right: 0;
+  margin-top: 5px;
+  padding: 0;
+  list-style: none;
+
+  & li {
+    padding: 0.2rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+
+    &:focus-visible {
+      background-color: var(--c-second-acc-1);
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--c-second-acc-2);
+    }
+
+    &:not(.no-click):is(:hover, :focus-within) {
+      background-color: var(--c-second-acc-2);
+    }
+  }
 
   &>div {
     white-space: pre;
