@@ -32,7 +32,7 @@ async function login() {
       </div>
       <div class="flex-col row">
         <label>Password</label>
-        <input type="password" name="password" required disabled>
+        <input type="password" name="password" required disabled title="Disabled for demo login">
       </div>
       <div class="flex-row button-wrapper row">
         <button class="round" type="submit">Login</button>
