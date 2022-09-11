@@ -33,7 +33,7 @@ class ApiMockService {
       email,
       username: email,
       created_at: new Date().toDateString(),
-      color_hex: '#4caf50',
+      color_hex: this.getRandomDarkColor(),
     }
     this.users.push(user)
     return {
@@ -118,7 +118,20 @@ class ApiMockService {
   }
 
   private getNewUuid(): string {
-    return self.crypto?.randomUUID() ?? `UUID${new Date().getTime()}`
+    return crypto?.randomUUID() ?? `UUID${new Date().getTime()}`
+  }
+
+  private getRandomDarkColor() {
+    const rgbMin = 30
+    const rgbMax = 120
+    const rgb: number[] = []
+    for (let i = 0; i < 3; i++) {
+      rgb.push(Math.floor((Math.random() * (rgbMax - rgbMin)) + rgbMin))
+    }
+    const hex = rgb
+      .map(num => num.toString(16)) // To HEX
+      .map(numStr => numStr.length === 1 ? '0' + numStr : numStr) // Add leading zero
+    return `#${hex[0]}${hex[1]}${hex[2]}`
   }
 
 }
