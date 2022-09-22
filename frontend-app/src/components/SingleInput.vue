@@ -23,7 +23,7 @@ function submitInput(): void {
 <template>
   <div class="input-wrapper flex-col">
     <label v-if="props.inputLabel" for="new-topic">{{ props.inputLabel }}</label>
-    <div class="flex-row gap-1">
+    <div class="flex-row">
       <input v-model="inputText" @focus="inputFocused = true" @blur="inputFocused = false" @keydown.enter="submitInput"
         :placeholder="props.inputPlaceholder" type="text" name="new-topic" id="new-topic" autocomplete="off"
         class="flex-grow">
@@ -37,9 +37,14 @@ function submitInput(): void {
 <style scoped lang="scss">
 .input-wrapper {
   margin-top: 1em;
+
+  & > div {
+    gap: 0.4rem;
+  }
 }
 
-input, button {
+input,
+button {
   box-shadow: var(--shadow-second);
 }
 </style>

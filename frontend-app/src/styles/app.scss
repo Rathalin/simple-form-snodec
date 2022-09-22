@@ -79,7 +79,7 @@ button {
   justify-content: center;
   align-items: center;
   gap: 0.4em;
-  padding: 0.8em;
+  padding: 0.4rem 0.8rem;
   border: transparent solid 1px;
   transition-property: border-color, background-color, color;
   transition-duration: var(--duration-normal);
@@ -87,6 +87,7 @@ button {
   color: var(--c-text-dark);
   background-color: var(--c-prime);
   font-weight: var(--font-weight-normal);
+  font-family: var(--font-second);
 
   &:hover:not([disabled]) {
     cursor: pointer;

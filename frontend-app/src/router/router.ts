@@ -59,15 +59,27 @@ const router = createRouter({
       name: 'xd',
       component: () => import('@/views/EmojiView.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'page-not-found',
+      component: () => import('@/views/NotFoundView.vue'),
+    }
   ]
 })
 
 router.beforeEach((to, from) => {
   const auth = useAuthStore()
-  auth.isAuthenticated = true
-  if (!auth.isAuthenticated && to.name !== 'login') {
-    return {
-      name: 'login'
+  if (!auth.isAuthenticated) {
+    if (to.name !== 'login') {
+      return {
+        path: 'login',
+      }
+    }
+  } else {
+    if (to.name === 'login') {
+      return {
+        name: 'home',
+      }
     }
   }
 })

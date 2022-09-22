@@ -1,30 +1,22 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HeaderProfile from './components/HeaderProfile.vue'
+import { useAuthStore } from './stores/auth-store'
 
-
+const authStore = useAuthStore()
 </script>
 
 <template>
   <header class="header-content flex-row wrap">
-    <HeaderProfile />
-    <span class="separator"></span>
     <nav>
       <RouterLink to="/" tabindex="-1">
         <button class="round" type="button">Home</button>
       </RouterLink>
-      <RouterLink to="/registered-users" tabindex="-1">
-        <button class="round" type="button">Registered Users</button>
-      </RouterLink>
-      <RouterLink to="/api-debug" tabindex="-1">
-        <button class="round" type="button">API Debug</button>
-      </RouterLink>
       <RouterLink to="/about" tabindex="-1">
         <button class="round" type="button">About</button>
       </RouterLink>
-      <RouterLink to="/xd" tabindex="-1">
-        <button class="round" type="button">🤔</button>
-      </RouterLink>
+      <span v-if="authStore.isAuthenticated" class="separator"></span>
+      <HeaderProfile />
     </nav>
   </header>
 
