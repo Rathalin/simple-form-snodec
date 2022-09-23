@@ -23,8 +23,7 @@ async function onCreateTopic(input1: string, input2: string): Promise<void> {
   if (authStore.user == null) {
     throw new Error(`Can't create a topic when 'user' of 'authStore' is null.`)
   }
-  // TODO: Create topic with description
-  apiMockService.createTopic(input1, input2, authStore.user)
+  await apiMockService.createTopic(input1, input2, authStore.user)
 
   await loadTopics()
 }

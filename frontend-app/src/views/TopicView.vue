@@ -33,7 +33,7 @@ async function onCreateThread(input: string): Promise<void> {
     throw new Error(`Can't create a thread when 'user' of 'authStore' is null.`)
   }
   const topicUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
-  apiMockService.createThread(input, topicUuid, authStore.user)
+  await apiMockService.createThread(input, topicUuid, authStore.user)
 
   await loadThreads()
 }

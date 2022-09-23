@@ -32,7 +32,7 @@ async function onCreateComment(input: string): Promise<void> {
     throw new Error(`Can't create a comment when 'user' of 'authStore' is null.`)
   }
   const threadUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
-  apiMockService.createComment(input, threadUuid, authStore.user)
+  await apiMockService.createComment(input, threadUuid, authStore.user)
 
   await loadComments()
 }
