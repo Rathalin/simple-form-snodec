@@ -9,7 +9,10 @@ import type { Topic } from '@/types/Topic'
 import BackButton from '@/components/BackButton.vue'
 import NoEntryMessage from '@/components/NoEntryMessage.vue'
 import CreatedInfo from '../components/CreatedInfo.vue'
+import { useAuthStore } from '@/stores/auth-store'
+import SingleInput from '@/components/SingleInput.vue'
 
+const authStore = useAuthStore()
 const route = useRoute()
 const topic = ref<Topic | null>(null)
 const threads = ref<Thread[]>([])
@@ -19,6 +22,21 @@ onMounted(async () => {
   topic.value = await apiMockService.getTopicByUUID(topicUuid)
   threads.value = await apiMockService.getThreadsByTopicUUID(topicUuid)
 })
+
+async function loadThreads(): Promise<void> {
+  const topicUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
+  threads.value = await apiMockService.getThreadsByTopicUUID(topicUuid)
+}
+
+async function onCreateThread(input: string): Promise<void> {
+  if (authStore.user == null) {
+    throw new Error(`Can't create a thread when 'user' of 'authStore' is null.`)
+  }
+  const topicUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
+  apiMockService.createThread(input, topicUuid, authStore.user)
+
+  await loadThreads()
+}
 </script>
 
 <template>
@@ -32,6 +50,7 @@ onMounted(async () => {
       <BackButton route-to="/" label="All topics" />
     </div>
   </h1>
+  <SingleInput input-placeholder="Create a thread" button-label="Create" @submit-input="onCreateThread" />
   <div v-if="threads.length > 0" class="threads">
     <ThreadItem v-for="thread in threads" :thread="thread" />
   </div>
