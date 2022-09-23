@@ -52,5 +52,6 @@ button {
   box-shadow: var(--shadow-second);
   color: white;
   margin-top: 0.5m;
+  float: right;
 }
 </style>
