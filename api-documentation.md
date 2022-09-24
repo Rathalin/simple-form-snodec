@@ -86,7 +86,7 @@ POST /topic
 }
 ```
 #### 400 Bad Request
-When body params **title**, **description** are missing.
+When body param **title** or **description** is missing.
 
 ## Get thread with all comments
 Responds with a thread and its comments. The parameter **uuid** has to match the uuid of the thread.
@@ -133,6 +133,7 @@ POST /thread
 ```ts
 {
   title: string
+  topicUuid: string
 }
 ```
 ### Response
@@ -149,7 +150,7 @@ POST /thread
 }
 ```
 #### 400 Bad Request
-When body param **title** is missing.
+When body param **title** or **topicUuid** is missing.
 
 ## Create comment
 Creates a comment. Responds with the newly created comment.
@@ -160,6 +161,7 @@ POST /comment
 ```ts
 {
   content: string
+  threadUuid: string
 }
 ```
 ### Response
@@ -172,8 +174,9 @@ POST /comment
   user: {
     uuid: string
     username: string
+    color_hex: string
   }
 }
 ```
 #### 400 Bad Request
-When body param **content** is missing.
+When body param **content** or **threadUuid** is missing.
