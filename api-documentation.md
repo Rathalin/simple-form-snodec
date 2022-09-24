@@ -40,7 +40,6 @@ GET /topic/:uuid
   user: {
     uuid: string
     username: string
-    color_hex: string
   },
   threads: [
     {
@@ -83,7 +82,6 @@ POST /topic
   user: {
     uuid: string
     username: string
-    color_hex: string
   }
 }
 ```
@@ -106,15 +104,17 @@ GET /thread/:uuid
   user: {
     uuid: string
     username: string
-    color_hex: string
   },
   comments: [
     {
       uuid: string
       content: string
       created_at: string
-      thread: Thread
-      user: User
+      user: {
+        uuid: string
+        username: string
+        color_hex: string
+      }
     }
   ]
 }
@@ -145,7 +145,6 @@ POST /thread
   user: {
     uuid: string
     username: string
-    color_hex: string
   }
 }
 ```
@@ -169,10 +168,10 @@ POST /comment
 {
   uuid: string
   content: string
+  created_at: string
   user: {
     uuid: string
     username: string
-    color_hex: string
   }
 }
 ```
