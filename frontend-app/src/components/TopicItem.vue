@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import type { Topic } from '@/types/Topic'
 import CreatedInfo from './CreatedInfo.vue'
 
 const props = defineProps<{
-  topic: Topic
+  topic: {
+    uuid: string
+    title: string
+    description: string
+    created_at: string
+    user: {
+      uuid: string
+      username: string
+    }
+  }
 }>()
 </script>
 

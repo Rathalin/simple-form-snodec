@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { apiMockService } from '@/services/api.mock.service'
+import { apiMockService } from '@/services/mock/api.mock.service'
 import type { User } from '@/types/User'
 import { getDateFromString } from '@/util/date.util'
 import { computed, onMounted, ref } from 'vue'

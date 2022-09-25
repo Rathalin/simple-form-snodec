@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { apiMockService } from '@/services/api.mock.service'
+import { apiMockService } from '@/services/mock/api.mock.service'
 import type { Comment } from '@/types/Comment'
 import type { Thread } from '@/types/Thread'
 import { onMounted, ref } from 'vue'

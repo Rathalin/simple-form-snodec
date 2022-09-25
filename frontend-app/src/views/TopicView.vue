@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 import { ref } from '@vue/reactivity'
 import type { Thread } from '@/types/Thread'
-import { apiMockService } from '@/services/api.mock.service'
+import { apiMockService } from '@/services/mock/api.mock.service'
 import ThreadItem from '@/components/ThreadItem.vue'
 import { useRoute } from 'vue-router'
 import type { Topic } from '@/types/Topic'

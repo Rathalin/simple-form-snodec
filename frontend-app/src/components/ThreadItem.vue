@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import type { Thread } from '@/types/Thread'
 import CreatedInfo from './CreatedInfo.vue'
 
 const props = defineProps<{
-  thread: Thread,
+  thread: {
+    uuid: string
+    title: string
+    created_at: string
+    user: {
+      uuid: string
+      username: string
+    }
+  }
 }>()
 </script>
 
@@ -20,6 +27,7 @@ const props = defineProps<{
 .title {
   margin-block: 0;
 }
+
 div.item {
   display: flex;
   flex-direction: column;

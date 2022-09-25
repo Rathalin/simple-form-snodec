@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import type { Comment } from '@/types/Comment'
 import { computed } from 'vue'
 import { getDateTimeFromString } from '@/util/date.util'
 import UserLink from '@/components/UserLink.vue'
 import UserThumbnail from '@/components/UserThumbnail.vue'
 
 const props = defineProps<{
-  comment: Comment
+  comment: {
+    uuid: string
+    content: string
+    created_at: string
+    user: {
+      uuid: string
+      username: string
+    }
+  }
   threadOwner?: boolean
 }>()
 

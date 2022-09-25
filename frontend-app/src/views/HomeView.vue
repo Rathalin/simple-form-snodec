@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import type { Topic } from '@/types/Topic'
-import { apiMockService } from '@/services/api.mock.service'
 import TopicItem from '@/components/TopicItem.vue'
 import NoEntryMessage from '@/components/NoEntryMessage.vue'
 import SingleInput from '@/components/SingleInput.vue'
 import { useAuthStore } from '@/stores/auth-store'
 
 const authStore = useAuthStore()
-const topics = ref<Topic[]>([])
+const topics = ref<>([])
 
 onMounted(async () => {
   await loadTopics()

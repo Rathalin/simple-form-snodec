@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import type { User } from '@/types/User'
 import { getDateTimeFromString } from '@/util/date.util'
 import { computed } from 'vue'
 import UserLink from './UserLink.vue'
 
 
 const props = defineProps<{
-  user: User
+  user: {
+    uuid: string
+    username: string
+  }
   createdAt: string
 }>()
 
