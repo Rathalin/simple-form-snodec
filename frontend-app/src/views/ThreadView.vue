@@ -9,7 +9,9 @@ import BackButton from '@/components/BackButton.vue'
 import CommentInput from '@/components/thread/CommentInput.vue'
 import CommentCounter from '@/components/thread/CommentCounter.vue'
 import CreatedInfo from '../components/CreatedInfo.vue'
+import { useAuthStore } from '@/stores/auth-store'
 
+const authStore = useAuthStore()
 const route = useRoute()
 const thread = ref<Thread | null>(null)
 const comments = ref<Comment[]>([])
@@ -19,6 +21,21 @@ onMounted(async () => {
   thread.value = await apiMockService.getThreadByUUID(threadUuid)
   comments.value = await apiMockService.getCommentsByThreadUuid(threadUuid)
 })
+
+async function loadComments(): Promise<void> {
+  const threadUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
+  comments.value = await apiMockService.getCommentsByThreadUuid(threadUuid)
+}
+
+async function onCreateComment(input: string): Promise<void> {
+  if (authStore.user == null) {
+    throw new Error(`Can't create a comment when 'user' of 'authStore' is null.`)
+  }
+  const threadUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
+  await apiMockService.createComment(input, threadUuid, authStore.user)
+
+  await loadComments()
+}
 </script>
 
 <template>
@@ -37,7 +54,7 @@ onMounted(async () => {
   </h1>
   <CommentCounter :comments="comments" />
   <div class="comment-input-wrapper">
-    <CommentInput placeholder="Add comment" />
+    <CommentInput placeholder="Add comment" buttonLabel="Post" @submit-input="onCreateComment"/>
   </div>
   <div class="comments">
     <CommentItem v-for="comment in comments" :comment="comment"

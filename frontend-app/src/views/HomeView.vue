@@ -4,6 +4,7 @@ import TopicItem from '@/components/TopicItem.vue'
 import NoEntryMessage from '@/components/NoEntryMessage.vue'
 import SingleInput from '@/components/SingleInput.vue'
 import { useAuthStore } from '@/stores/auth-store'
+import TopicInput from '../components/TopicInput.vue'
 
 const authStore = useAuthStore()
 const topics = ref<>([])
@@ -16,12 +17,11 @@ async function loadTopics(): Promise<void> {
   topics.value = await apiMockService.getTopics()
 }
 
-async function onCreateTopic(input: string): Promise<void> {
+async function onCreateTopic(input1: string, input2: string): Promise<void> {
   if (authStore.user == null) {
     throw new Error(`Can't create a topic when 'user' of 'authStore' is null.`)
   }
-  // TODO: Create topic with description
-  apiMockService.createTopic(input, '', authStore.user)
+  await apiMockService.createTopic(input1, input2, authStore.user)
 
   await loadTopics()
 }
@@ -29,7 +29,7 @@ async function onCreateTopic(input: string): Promise<void> {
 
 <template>
   <h1 class="heading-text">Topics 🍴</h1>
-  <SingleInput input-placeholder="Create a topic" button-label="Create" @submit-input="onCreateTopic" />
+  <TopicInput input-placeholder="Create a topic" input-descplaceholder="Description" button-label="Create" @submit-input="onCreateTopic" />
   <div v-if="topics.length > 0" class="topics">
     <TopicItem v-for="topic in topics" :topic="topic" />
   </div>
