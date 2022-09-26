@@ -1,12 +1,31 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 const props = defineProps<{
   placeholder: string
+  buttonLabel: string
 }>()
+
+const emits = defineEmits<{
+  (e: 'submit-input', input: string): void
+}>()
+
+const inputText = ref('')
+const inputFocused = ref(false)
+
+function submitInput(): void {
+  emits('submit-input', inputText.value)
+  inputText.value = ''
+}
 </script>
 
 <template>
   <div class="input-wrapper">
-    <input :placeholder="props.placeholder" type="text">
+    <input v-model="inputText" @focus="inputFocused = true" @blur="inputFocused = false" @keydown.enter="submitInput"
+        :placeholder="props.placeholder" type="text"  name="new-comment" id="new-comment" autocomplete="off">
+    <button v-if="inputFocused || inputText" :disabled="inputText.length === 0" @click="submitInput">
+      {{ props.buttonLabel }}
+    </button>
   </div>
 </template>
 
@@ -26,5 +45,13 @@ input {
   &:focus {
     border-color: var(--c-second-acc-1);
   }
+}
+
+button {
+  border: unset;
+  box-shadow: var(--shadow-second);
+  color: white;
+  margin-top: 0.5m;
+  float: right;
 }
 </style>
