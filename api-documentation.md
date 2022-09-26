@@ -105,6 +105,10 @@ GET /thread/:uuid
     uuid: string
     username: string
   },
+  topic: {
+    uuid: string
+    title: string
+  }
   comments: [
     {
       uuid: string

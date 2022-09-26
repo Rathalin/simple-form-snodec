@@ -1,4 +1,4 @@
-export interface GetThreadsResponse {
+export interface GetThreadByUuidResponse {
   data: {
     uuid: string
     title: string
@@ -7,6 +7,10 @@ export interface GetThreadsResponse {
       uuid: string
       username: string
     },
+    topic: {
+      uuid: string
+      title: string
+    }
     comments: {
       uuid: string
       content: string

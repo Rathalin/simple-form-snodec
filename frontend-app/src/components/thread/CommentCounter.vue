@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { Comment } from '@/types/Comment'
 
 const props = defineProps<{
-  comments: Comment[]
+  comments: {
+    content: string
+  }[]
 }>()
 </script>
 

@@ -66,6 +66,7 @@ export const useAuthStore = defineStore('user', {
         created_at: new Date().toDateString(),
         color_hex: getRandomDarkColor(),
       }
+      await this.router.push('/')
     },
     async demoLogout() {
       if (this.user == null) {

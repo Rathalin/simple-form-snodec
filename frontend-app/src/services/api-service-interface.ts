@@ -3,7 +3,7 @@ import type {
 } from "./api/comment-protocol"
 import type {
   CreateThreadResponse,
-  GetThreadsResponse,
+  GetThreadByUuidResponse,
 } from "./api/thread-protocol"
 import type {
   CreateTopicResponse,
@@ -18,8 +18,8 @@ export interface IApiService {
   // getUserByUuid: () => Promise<any>
   getTopics: () => Promise<GetTopicsResponse>
   getTopicByUuid: (uuid: string) => Promise<GetTopicByUuidResponse>
-  createTopic: (title: string, description: string) => Promise<CreateTopicResponse>
-  getThreadByUuid: (uuid: string) => Promise<GetThreadsResponse>
-  createThread: (title: string, topicUuid: string) => Promise<CreateThreadResponse>
-  createComment: (content: string, threadUuid: string) => Promise<CreateCommentResponse>
+  createTopic: (title: string, description: string, user: { uuid: string, username: string, color_hex: string }) => Promise<CreateTopicResponse>
+  getThreadByUuid: (uuid: string) => Promise<GetThreadByUuidResponse>
+  createThread: (title: string, topicUuid: string, user: { uuid: string, username: string, color_hex: string }) => Promise<CreateThreadResponse>
+  createComment: (content: string, threadUuid: string, user: { uuid: string, username: string, color_hex: string }) => Promise<CreateCommentResponse>
 }

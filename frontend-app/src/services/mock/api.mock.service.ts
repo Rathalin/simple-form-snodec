@@ -12,19 +12,17 @@
 //   }
 // }
 
-import { useAuthStore } from "@/stores/auth-store"
 import type { IApiService } from "../api-service-interface"
 import type { CreateCommentResponse } from "../api/comment-protocol"
-import type { CreateThreadResponse, GetThreadsResponse } from "../api/thread-protocol"
+import type { CreateThreadResponse, GetThreadByUuidResponse } from "../api/thread-protocol"
 import type { CreateTopicResponse, GetTopicByUuidResponse, GetTopicsResponse } from "../api/topic-protocol"
 
 
 class ApiMockService implements IApiService {
 
-  private users = [...mockUserResponses]
-  private topics = [...mockTopicsResponses]
-  private threads = [...mockThreadsResponses]
-  private authStore = useAuthStore()
+  private users = mockUserResponse
+  private topics = mockTopicsResponse
+  private threads = mockThreadsResponse
 
   // Public methods
 
@@ -49,45 +47,47 @@ class ApiMockService implements IApiService {
 
   async getTopics(): Promise<GetTopicsResponse> {
     const topics = structuredClone(this.topics)
-    topics.forEach((t: { data: { threads: any } }) => t.data.threads = undefined)
+    topics.data.forEach((t: { threads: any }) => {
+      t.threads = undefined
+    })
     return topics
   }
 
   async getTopicByUuid(uuid: string): Promise<GetTopicByUuidResponse> {
-    return structuredClone(this.topics.find(t => t.data.uuid === uuid)!)
+    return { data: structuredClone(this.topics.data.find((t: { uuid: string }) => t.uuid === uuid)!) }
   }
 
-  async createTopic(title: string, description: string): Promise<CreateTopicResponse> {
+  async createTopic(title: string, description: string, user: { uuid: string, username: string, color_hex: string }): Promise<CreateTopicResponse> {
     const newTopic = {
-      data: {
-        uuid: this.getNewUuid(),
-        title,
-        description,
-        created_at: this.now(),
-        user: { ...this.authStore.user! },
-        threads: [],
-      }
+      uuid: this.getNewUuid(),
+      title,
+      description,
+      created_at: this.now(),
+      user: { ...user },
+      threads: [],
     }
-    this.topics.push(newTopic)
-    return newTopic
+    this.topics.data.push(newTopic)
+    return { data: newTopic }
   }
 
-  async getThreadByUuid(uuid: string): Promise<GetThreadsResponse> {
-    return structuredClone(this.threads.find(thread => thread.data.uuid === uuid))
+  async getThreadByUuid(uuid: string): Promise<GetThreadByUuidResponse> {
+    return { data: this.threads.data.find((thread: { uuid: string }) => thread.uuid === uuid)! }
   }
 
-  async createThread(title: string, topicUuid: string): Promise<CreateThreadResponse> {
+  async createThread(title: string, topicUuid: string, user: { uuid: string, username: string, color_hex: string }): Promise<CreateThreadResponse> {
     const newThread = {
-      data: {
-        uuid: this.getNewUuid(),
-        title,
-        created_at: this.now(),
-        user: { ...this.authStore.user! },
-        comments: [],
-      }
+      uuid: this.getNewUuid(),
+      title,
+      created_at: this.now(),
+      user: { ...user },
+      topic: {
+        uuid: topicUuid,
+        title: '',
+      },
+      comments: [],
     }
-    this.threads.push(newThread)
-    return newThread
+    this.threads.data.push(newThread)
+    return { data: newThread }
     // const topic = await this.getTopicByUUID(topicUuid)
     // if (topic == null) {
     //   throw new Error(`Topic with uuid '${topicUuid}' not found.`)
@@ -101,19 +101,15 @@ class ApiMockService implements IApiService {
     // })
   }
 
-  async createComment(content: string, threadUuid: string): Promise<CreateCommentResponse> {
+  async createComment(content: string, threadUuid: string, user: { uuid: string, username: string, color_hex: string }): Promise<CreateCommentResponse> {
     const newComment = {
       uuid: this.getNewUuid(),
       content,
       created_at: this.now(),
-      user: {
-        uuid: this.authStore.user!.uuid,
-        username: this.authStore.user!.username,
-        color_hex: this.authStore.user!.color_hex,
-      },
+      user: { ...user },
     }
-    this.threads.find(th => th.data.uuid === threadUuid)!.data.comments.push(newComment)
-    return { data: newComment }
+    this.threads.data.find(th => th.uuid === threadUuid)!.comments.push(newComment)
+    return { data: structuredClone(newComment) }
     // const thread = await this.getThreadByUUID(threadUuid)
     // if (thread == null) {
     //   throw new Error(`Thread with uuid '${threadUuid}' not found.`)
@@ -142,7 +138,7 @@ class ApiMockService implements IApiService {
 
 // Mock data
 
-const mockUserResponses = [
+const mockUserResponse = [
   {
     uuid: '90fe2d9c-0b74-11ed-9873-08002771075f',
     username: 'Petrosilius Zwackelmann',
@@ -152,16 +148,20 @@ const mockUserResponses = [
   },
 ]
 
-const mockThreadsResponses = [
-  {
-    data: {
+const mockThreadsResponse = {
+  data: [
+    {
       uuid: 'b60af287-0b74-11ed-9873-08002771075f',
       title: 'Sacher Torte',
       created_at: '2022-07-23 20:13:38',
       user: {
-        uuid: mockUserResponses[0].uuid,
-        username: mockUserResponses[0].username,
-        color_hex: mockUserResponses[0].color_hex,
+        uuid: mockUserResponse[0].uuid,
+        username: mockUserResponse[0].username,
+        color_hex: mockUserResponse[0].color_hex,
+      },
+      topic: {
+        uuid: 'aae74cc2-0b74-11ed-9873-08002771075f',
+        title: 'Cake 🍰',
       },
       comments: [
         {
@@ -176,34 +176,35 @@ const mockThreadsResponses = [
         },
       ]
     }
-  },
-]
+  ]
+}
 
-const mockTopicsResponses = [
-  {
-    data: {
+const mockTopicsResponse = {
+  data: [
+    {
       uuid: 'aae74cc2-0b74-11ed-9873-08002771075f',
       title: 'Cake 🍰',
       description: 'Discussions about cake',
       created_at: '2022-07-23 20:08:03',
       user: {
-        uuid: mockUserResponses[0].uuid,
-        username: mockUserResponses[0].username,
+        uuid: mockUserResponse[0].uuid,
+        username: mockUserResponse[0].username,
+        color_hex: mockUserResponse[0].color_hex,
       },
       threads: [
         {
-          uuid: mockThreadsResponses[0].data.uuid,
-          title: mockThreadsResponses[0].data.title,
-          created_at: mockThreadsResponses[0].data.created_at,
+          uuid: mockThreadsResponse.data[0].uuid,
+          title: mockThreadsResponse.data[0].title,
+          created_at: mockThreadsResponse.data[0].created_at,
           user: {
-            uuid: mockThreadsResponses[0].data.user.uuid,
-            username: mockThreadsResponses[0].data.user.username,
+            uuid: mockThreadsResponse.data[0].user.uuid,
+            username: mockThreadsResponse.data[0].user.username,
           }
         },
       ]
     }
-  },
-]
+  ]
+}
 
 
 export const apiMockService = new ApiMockService()

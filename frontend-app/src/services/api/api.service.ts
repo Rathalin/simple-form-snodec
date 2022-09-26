@@ -6,7 +6,7 @@ import type {
 import type {
   CreateThreadRequest,
   CreateThreadResponse,
-  GetThreadsResponse,
+  GetThreadByUuidResponse,
 } from "./thread-protocol"
 import type {
   CreateTopicRequest,
@@ -62,7 +62,7 @@ class ApiService implements IApiService {
   }
 
 
-  async getThreadByUuid(uuid: string): Promise<GetThreadsResponse> {
+  async getThreadByUuid(uuid: string): Promise<GetThreadByUuidResponse> {
     const response = await fetch(`${this.API_URL}/thread/${uuid}`, {
       method: 'GET',
     })
