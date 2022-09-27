@@ -1,13 +1,12 @@
+import type { UserDTO } from "@/types/UserDTO"
+
 export interface GetTopicsResponse {
   data: {
     uuid: string
     title: string
     description: string
     created_at: string
-    user: {
-      uuid: string
-      username: string
-    }
+    user: UserDTO
   }[]
 }
 
@@ -17,19 +16,12 @@ export interface GetTopicByUuidResponse {
     title: string
     description: string
     created_at: string
-    user: {
-      uuid: string
-      username: string
-      color_hex: string
-    },
+    user: UserDTO,
     threads: {
       uuid: string
       title: string
       created_at: string
-      user: {
-        uuid: string
-        username: string
-      }
+      user: UserDTO
     }[]
   }
 }
@@ -45,9 +37,6 @@ export interface CreateTopicResponse {
     title: string
     description: string
     created_at: string
-    user: {
-      uuid: string
-      username: string
-    }
+    user: UserDTO
   }
 }

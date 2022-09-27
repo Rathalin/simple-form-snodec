@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { User } from '@/types/User'
+import type { UserDTO } from '@/types/UserDTO'
 import UserThumbnail from './UserThumbnail.vue'
 
 defineProps<{
-  user: User,
+  user: UserDTO,
 }>()
 
 </script>
@@ -15,4 +15,5 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
+
 </style>

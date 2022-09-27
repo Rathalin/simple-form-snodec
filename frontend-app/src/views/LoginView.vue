@@ -16,15 +16,7 @@ async function login() {
 
 <template>
   <form class="login-wrapper flex-col no-wrap" @submit.prevent="login()">
-    <h1>Login</h1>
-    <div class="flex-row hint">
-      <div>❗</div>
-      <div>
-        <div>Real login not implemented yet.</div>
-        <div>Use any email to continue.</div>
-      </div>
-      <div>❗</div>
-    </div>
+    <h1>Login (Demo)</h1>
     <div class="flex-col">
       <div class="flex-col row">
         <label>Email</label>

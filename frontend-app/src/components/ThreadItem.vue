@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { UserDTO } from '@/types/UserDTO';
 import CreatedInfo from './CreatedInfo.vue'
 
 const props = defineProps<{
@@ -6,10 +7,7 @@ const props = defineProps<{
     uuid: string
     title: string
     created_at: string
-    user: {
-      uuid: string
-      username: string
-    }
+    user: UserDTO
   }
 }>()
 </script>

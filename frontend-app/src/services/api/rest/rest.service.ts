@@ -1,25 +1,41 @@
+import type { UserDTO } from "@/types/UserDTO"
 import type { IApiService } from "../api-service-interface"
 import type {
   CreateCommentRequest,
   CreateCommentResponse,
-} from "./comment-protocol"
+} from "../protocols/comment-protocol"
 import type {
   CreateThreadRequest,
   CreateThreadResponse,
   GetThreadByUuidResponse,
-} from "./thread-protocol"
+} from "../protocols/thread-protocol"
 import type {
   CreateTopicRequest,
   CreateTopicResponse,
   GetTopicByUuidResponse,
   GetTopicsResponse,
-} from "./topic-protocol"
+} from "../protocols/topic-protocol"
 
-class ApiService implements IApiService {
+class RestService implements IApiService {
   private readonly API_URL: string = 'http://localhost:8080/api'
 
-  async login(username: string, password: string) {
+  async login(username: string, password: string): Promise<{
+    user?: UserDTO,
+    error?: {
+      email?: {
+        required?: boolean
+        notExisting?: boolean
+      }
+      password?: {
+        required?: boolean
+        wrong?: boolean
+      }
+    }
+  }> {
     // TODO
+    return {
+
+    }
   }
 
   async logout() {
@@ -31,7 +47,20 @@ class ApiService implements IApiService {
     const response = await fetch(`${this.API_URL}/users`, {
       method: 'GET',
     })
-    return { data: await response.json() }
+    return await response.json()
+  }
+
+  async getUserByUuid(uuid: string): Promise<{
+    uuid: string
+    username: string
+    email: string
+    created_at: string
+    color_hex: string
+  }> {
+    const response = await fetch(`${this.API_URL}/users/${uuid}`, {
+      method: 'GET',
+    })
+    return await response.json()
   }
 
 
@@ -96,4 +125,4 @@ class ApiService implements IApiService {
 
 }
 
-export const apiService = new ApiService()
+export const apiService = new RestService()

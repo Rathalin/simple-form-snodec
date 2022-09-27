@@ -15,11 +15,8 @@ onMounted(async () => {
 })
 
 async function loadTopics(): Promise<void> {
-  console.log('begin loadTopics')
   const response = await apiMockService.getTopics()
-  console.table(response.data)
   topics.value = response
-  console.log(topics.value.data)
 }
 
 async function onCreateTopic(input1: string, input2: string): Promise<void> {

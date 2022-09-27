@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { apiMockService } from '@/services/mock/api.mock.service'
-import type { User } from '@/types/User'
+import type { UserDTO } from '@/types/UserDTO'
 import { onMounted, ref } from 'vue'
 import UserThumbnail from '../components/UserThumbnail.vue'
 import UserLink from '../components/UserLink.vue'
-import { apiService } from '@/services/api/api.service'
+import { apiService } from '@/services/api/rest.service'
 
-const users = ref<User[]>([])
+const users = ref<UserDTO[]>([])
 
 onMounted(async () => {
   users.value = await apiMockService.getUsers()

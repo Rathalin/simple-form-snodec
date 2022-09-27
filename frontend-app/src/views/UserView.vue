@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { apiMockService } from '@/services/mock/api.mock.service'
-import type { User } from '@/types/User'
 import { getDateFromString } from '@/util/date.util'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import BackButton from '@/components/BackButton.vue'
 import UserThumbnail from '@/components/UserThumbnail.vue'
+import type { UserDTO } from '@/types/UserDTO'
 
 const route = useRoute()
-const user = ref<User | null>(null)
+const user = ref<UserDTO | null>(null)
 
 const created_at = computed(() => {
   return user.value == null ? '' : getDateFromString(user.value.created_at)
@@ -16,7 +16,7 @@ const created_at = computed(() => {
 
 onMounted(async () => {
   const userUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
-  user.value = await apiMockService.getUserByUUID(userUuid)
+  user.value = await apiMockService.getUserByUuid(userUuid)
 })
 </script>
 

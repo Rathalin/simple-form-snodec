@@ -9,7 +9,7 @@ import NoEntryMessage from '@/components/NoEntryMessage.vue'
 import CreatedInfo from '../components/CreatedInfo.vue'
 import { useAuthStore } from '@/stores/auth-store'
 import SingleInput from '@/components/SingleInput.vue'
-import type { GetTopicByUuidResponse, GetTopicsResponse } from '@/services/api/topic-protocol'
+import type { GetTopicByUuidResponse } from '@/services/rest/topic-protocol'
 
 const authStore = useAuthStore()
 const route = useRoute()

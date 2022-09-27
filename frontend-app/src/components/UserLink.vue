@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import type { UserDTO } from '@/types/UserDTO';
+
 defineProps<{
-  user: {
-    uuid: string
-    username: string
-  }
+  user: UserDTO
 }>()
 </script>
 

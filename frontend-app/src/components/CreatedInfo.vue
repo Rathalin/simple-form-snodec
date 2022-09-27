@@ -1,14 +1,12 @@
 <script setup lang="ts">
+import type { UserDTO } from '@/types/UserDTO';
 import { getDateTimeFromString } from '@/util/date.util'
 import { computed } from 'vue'
 import UserLink from './UserLink.vue'
 
 
 const props = defineProps<{
-  user: {
-    uuid: string
-    username: string
-  }
+  user: UserDTO
   createdAt: string
 }>()
 

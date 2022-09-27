@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { User } from '@/types/User'
+import type { UserDTO } from '@/types/UserDTO'
 import { computed } from 'vue'
 
 const props = defineProps<{
-  user: User,
+  user: UserDTO,
   disableLink?: boolean,
 }>()
 
-const firstLetter = computed(() => props.user.username.charAt(0).toLocaleUpperCase())
+const firstLetter = computed(() => props.user.username?.charAt(0).toLocaleUpperCase() ?? '')
 </script>
 
 <template>
