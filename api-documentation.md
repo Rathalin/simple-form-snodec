@@ -69,6 +69,7 @@ POST /topic
 {
   title: string
   description: string
+  user_account_id: string
 }
 ```
 ### Response
@@ -138,6 +139,7 @@ POST /thread
 {
   title: string
   topicUuid: string
+  user_account_id: string
 }
 ```
 ### Response
@@ -166,6 +168,7 @@ POST /comment
 {
   content: string
   threadUuid: string
+  user_account_id: string
 }
 ```
 ### Response

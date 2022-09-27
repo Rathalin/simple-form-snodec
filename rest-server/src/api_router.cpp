@@ -61,27 +61,281 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
             });
     });
 
-    // Example: Database View
+    
+
+    // Example: Database View GET all topics + users
     apiRouter.get("/topic", [&db] APPLICATION(req, res) {
-        json* usersJson = new json;
+        json* topicsJson = new json;
         db.query(
             "select * from view_topics",
-            [&res, usersJson](const MYSQL_ROW row) -> void {
+            [&res, topcisJson](const MYSQL_ROW row) -> void {
                 if (row != nullptr) {
-                    usersJson->push_back({ { "uuid", row[0] },
+                   topicsJson->push_back({ { "uuid", row[0] },
                         { "title", row[1] },
                         { "description", row[2] },
                         { "created_at", row[3] },
-                        { "user", { { "uuid", row[4] }, { "username", row[5] }, { "color_hex", row[6] }, { "email", row[7] }, { "created_at", row[8] } } } });
+                        { "user", { { "uuid", row[4] }, { "username", row[5] } } } });
                 } else {
-                    res.send(usersJson->dump(4));
-                    delete usersJson;
+                    res.send(topicsJson->dump(4));
+                    delete topcisJson;
                 }
             },
             [&res](const std::string& errorString, unsigned int errorNumber) -> void {
                 handleDbError(res, errorString, errorNumber);
             });
     });
+
+    // get topic and its threads 
+    apiRouter.get("/topic/:uuid", [&db] APPLICATION(req, res) {
+        json* threadsJson = new json; // contains found threads
+        json* topicJson = new json; // contains found topic
+        json* topicThreads = new json; // contains topic and its threads 
+        db.query(
+            // req.query.uuid for uuid value
+            "select * from view_topics " 
+            "where uuid = '"
+                        + string { req.query.uuid } + "'",
+            [&res, topicJson](const MYSQL_ROW row) -> void {
+                if (row != nullptr) {
+                   int topicId {stoi(row[0])}; // topic Id
+                   topicJson{ { "uuid", row[1] },
+                        { "title", row[3] },
+                        { "description", row[4] },
+                        { "created_at", row[4] },
+                        { "user", { { "uuid", row[4] }, { "username", row[5] } } };
+
+                } else {
+                    db.query(
+                    "select * from view_threads " 
+                    "where thread_topic_id = '"
+                                + string { topicId } + "'",
+                    [&res, threadsJson](const MYSQL_ROW row) -> void {
+                        if (row != nullptr) {
+                        int topicId {stoi(row[0])}; // topic Id
+                        threadsJson->push_back( "threads", [{ { "uuid", row[1] },
+                                { "title", row[2] },
+                                { "created_at", row[3] },
+                                { "user", { { "uuid", row[6] }, { "username", row[7] } } }]);
+
+                        } else {
+                            
+                            topicThreads{topicJson, threadsJson};
+                            res.status(200).send(topicThreads->dump(4));
+                            delete threadsJson;
+                            delete topicJson;
+                            delete topicThreads;
+                        }
+                    },
+                    [&res](const std::string& errorString, unsigned int errorNumber) -> void {
+                        handleDbError(res, errorString, errorNumber);
+                    });
+                }
+            },
+            [&res](const std::string& errorString, unsigned int errorNumber) -> void {
+                handleDbError(res, errorString, errorNumber);
+            });
+    });
+
+      apiRouter.get("/thread/:uuid", [&db] APPLICATION(req, res) {
+        json* threadJson = new json; // contains found thread
+        json* commentsJson = new json; // contains found comments
+        json* threadComments = new json; // contains thread and its comments 
+        json* topicJson = new json; // contains topic
+
+        db.query(
+            // req.query.uuid for uuid value
+            "select * from view_threads " 
+            "where uuid = '"
+                        + string { req.query.uuid } + "'",
+            [&res, threadJson](const MYSQL_ROW row) -> void {
+                if (row != nullptr) {
+                   int threadId {stoi(row[0])}; // thread Id
+                   int topicId {stoi(row[4])} // topic Id
+                  threadJson{ { "uuid", row[1] },
+                        { "title", row[2] },
+                        { "created_at", row[3] },
+                        { "user", { { "uuid", row[6] }, { "username", row[7] } } };
+
+                } else {
+                      db.query(
+            // req.query.uuid for uuid value
+            "select * from topic " 
+            "where id= '"
+                        + string { topicId } + "'",
+            [&res, topicJson](const MYSQL_ROW row) -> void {
+                if (row != nullptr) {}
+                  topicJson{ { "uuid", row[1] },
+                        { "title", row[2] }
+                } else {
+                    db.query(
+                    "select * from view_comments " 
+                    "where comment_thread_id = '"
+                                + string { threadId } + "'",
+                    [&res, commentsJson](const MYSQL_ROW row) -> void {
+                        if (row != nullptr) {
+                        commentsJson->push_back( "comments", [{ { "uuid", row[1] },
+                                { "content", row[2] },
+                                { "created_at", row[3] },
+                                { "user", { { "uuid", row[6] }, { "username", row[7] }, {"color_hex", row[8]} } }]);
+
+                        } else {
+                            
+                           threadComments{threadJson, topicJson, commentsJson};
+                            res.status(200).send(threadComments->dump(4));
+                            delete threadJson;
+                            delete topicJson;
+                            delete commentsJson;
+                            delete threadComments;
+                        }
+                    },
+                    [&res](const std::string& errorString, unsigned int errorNumber) -> void {
+                        handleDbError(res, errorString, errorNumber);
+                    });
+                }
+            },
+            [&res](const std::string& errorString, unsigned int errorNumber) -> void {
+                handleDbError(res, errorString, errorNumber);
+            });
+                }
+            },
+            [&res](const std::string& errorString, unsigned int errorNumber) -> void {
+                handleDbError(res, errorString, errorNumber);
+            });
+    });
+
+
+
+   // POST topic: creates a new topic
+    apiRouter.post("/topic", [] APPLICATION(req, res) {
+        json* responseJson = new json;
+
+        req.getAttribute<nlohmann::json>(
+            [&res](nlohmann::json& body) -> void {
+                // Body is send by the client
+                if(body["title"] || body["description"] != nullptr){
+                db.query(
+                    "INSERT INTO topic(title, description, user_account_id)
+                    VALUES( '"
+                        + string { body["title"] } + "'"
+                        + string { body["description"] } + "'"
+                        + string { body["user_account_id"] } + "'"
+                    ")");
+                db.query("select * from view_topics where topic_title = '" 
+                  + string { body["title"] } + "' AND user_acount_id= '"
+                  + string { body["user_account_id"] } + "'",
+
+                 ),
+                 [&res, responseJson](const MYSQL_ROW row) -> void {
+                if (row != nullptr) {
+                  responseJson{ { "uuid", row[0] },
+                        { "title", row[1] },
+                        { "description", row[2] },
+                        { "created_at", row[3] },
+                        { "user", { { "uuid", row[4] }, { "username", row[5] } } } };
+                } else {
+                    res.status(200).send(responseJson->dump(4));
+                    delete responseJson;
+                }
+            }
+                  
+                } else {
+                    [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(400);
+                    }       
+                }
+              
+            },
+            [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(500);
+            }));
+
+   // POST thread: creates new thread
+    apiRouter.post("/thread", [] APPLICATION(req, res) {
+        json* responseJson = new json;
+
+        req.getAttribute<nlohmann::json>(
+            [&res](nlohmann::json& body) -> void {
+                // Body is send by the client
+                if(body["title"] != nullptr){
+                db.query(
+                    "INSERT INTO thread(title, topic_id, user_account_id)
+                    VALUES( '"
+                        + string { body["title"] } + "'" 
+                         + string { body["topicUuid"] } + "'" 
+                        + string { body["user_account_id"] } + "'"
+                    ")");
+
+                  db.query("select * from view_threads where thread_title = '" 
+                  + string { body["title"] } + "' AND user_acount_id= '"
+                  + string { body["user_account_id"] } + "'",
+
+                 ),
+                 [&res, responseJson](const MYSQL_ROW row) -> void {
+                if (row != nullptr) {
+                  responseJson{ { "uuid", row[1] },
+                        { "title", row[2] },
+                        { "created_at", row[3] },
+                        { "user", { { "uuid", row[6] }, { "username", row[7] } } } };
+                } else {
+                    res.status(200).send(responseJson->dump(4));
+                    delete responseJson;
+                }
+            }
+                  
+                } else {
+                    [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(400);
+                    }       
+                }
+              
+            },
+            [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(500);
+            }));
+
+   // POST comment: creates new comment
+    apiRouter.post("/comment", [] APPLICATION(req, res) {
+        json* commentsJson = new json;
+        json* responesJson = new json;
+
+        req.getAttribute<nlohmann::json>(
+            [&res](nlohmann::json& body) -> void {
+                // Body is send by the client
+                if(body["content"] || body["threadUuid"] != nullptr){
+                db.query(   // insert new comment
+                    "INSERT INTO comment(content, thread_id, user_account_id)
+                    VALUES( '"
+                        + string { body["content"] } + "'" 
+                        + string { body["threadUuid"] } + "'" 
+                        + string { body["user_account_id"] } + "'"
+                    ")");
+                    
+                     db.query("select * from view_comments where comment_content = '" 
+                  + string { body["content"] } + "' AND user_acount_id= '"
+                  + string { body["user_account_id"] } + "'",
+
+                 ),
+                 [&res, responseJson](const MYSQL_ROW row) -> void {
+                if (row != nullptr) {
+                  responseJson{ { "uuid", row[1] },
+                        { "title", row[2] },
+                        { "created_at", row[3] },
+                        { "user", { { "uuid", row[6] }, { "username", row[7] },{ "color_hex", row[8] } } } };
+                } else {
+                    res.status(200).send(responseJson->dump(4));
+                    delete responseJson;
+                }
+            }
+                } else {
+                    [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(400);
+                    }       
+                }
+              
+            },
+            [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(500);
+            }));
 
     // Example: Check user passsword
     apiRouter.post("/login", [&db] APPLICATION(req, res) {
@@ -133,6 +387,7 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
                 res.sendStatus(500);
             });
     });
+
 
     return apiRouter;
 }
