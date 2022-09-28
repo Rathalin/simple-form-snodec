@@ -63,7 +63,7 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
 
     
 
-    // Example: Database View GET all topics + users
+    // Database View GET all topics + users
     apiRouter.get("/topic", [&db] APPLICATION(req, res) {
         json* topicsJson = new json;
         db.query(
@@ -337,6 +337,50 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
                 res.sendStatus(500);
             }));
 
+
+
+    // POST register: registers new user
+    apiRouter.post("/register", [] APPLICATION(req, res) {
+        json* newUserJson = new json;
+
+        req.getAttribute<nlohmann::json>(
+            [&res](nlohmann::json& body) -> void {
+                // Body is send by the client
+                if(body["username"] || body["password"] || body["email"] != nullptr){
+                db.query(   // insert new comment
+                    "INSERT INTO user_account(username, email, password)
+                    VALUES( '"
+                        + string { body["username"] } + "'" 
+                        + string { body["email"] } + "'" 
+                        + string { body["password"] } + "'"
+                    ")");
+                    
+                     db.query("select * from user_account where username = '" 
+                  + string { body["username"] } + "' OR email= '"
+                  + string { body["email"] } + "'",
+
+                 ),
+                 [&res, newUserJson](const MYSQL_ROW row) -> void {
+                if (row != nullptr) {
+                  res.status(401).send( json { { "error", "Username already taken or email already in use!" } }.dump(4))
+                } else {
+                    res.status(200).send(newUserJson->dump(4));
+                    delete newUserJson;
+                }
+            }
+                } else {
+                    [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(400);
+                    }       
+                }
+              
+            },
+            [&res]([[maybe_unused]] const std::string& key) -> void {
+                res.sendStatus(500);
+            }));
+
+
+
     // Example: Check user passsword
     apiRouter.post("/login", [&db] APPLICATION(req, res) {
         req.getAttribute<nlohmann::json>(
@@ -363,7 +407,7 @@ express::Router createApiRouter(database::mariadb::MariaDBClient& db)
                                             // Check password
                                             if (dbPasswordHash == hashSha1(dbPasswordSalt + bodyPassword)) {
                                                 VLOG(0) << "Sending successful login";
-                                                res.send(json { { "success", "Successfully logged in" } }.dump(4));
+                                                res.status(200).send(json { { "success", "Successfully logged in" } }.dump(4));
                                             } else {
                                                 VLOG(0) << "Sending invalid password error";
                                                 res.status(401).send(json { { "error", "Invalid password" } }.dump(4));
