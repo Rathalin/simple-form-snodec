@@ -199,18 +199,7 @@ POST /register
 ```
 ### Response
 #### 200 OK
-```ts
-{
-  uuid: string
-  content: string
-  created_at: string
-  user: {
-    uuid: string
-    username: string
-    color_hex: string
-  }
-}
-```
+
 #### 401 Bad Request
 When body param **username** or **email** are already in use.
 
