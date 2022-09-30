@@ -1,4 +1,4 @@
-import { apiMockService } from '@/services/api/mock/api-mock.service'
+import { apiService } from '@/services/api/api.service'
 import type { UserDTO } from '@/types/UserDTO'
 import { defineStore } from 'pinia'
 
@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('user', {
   },
   actions: {
     async login(email: string, password: string) {
-      const response = await apiMockService.login(email, '')
+      const response = await apiService.login(email, '')
       if (response.user != null) {
         this.user = response.user
         await this.router.push('/')
@@ -29,7 +29,7 @@ export const useAuthStore = defineStore('user', {
       if (this.user == null) {
         throw new Error(`Can't logout with 'user' being 'null'`)
       }
-      await apiMockService.logout()
+      await apiService.logout()
       this.user = null
       await this.router.push('/login')
     },

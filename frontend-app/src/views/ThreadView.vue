@@ -7,8 +7,8 @@ import CommentInput from '@/components/thread/CommentInput.vue'
 import CommentCounter from '@/components/thread/CommentCounter.vue'
 import CreatedInfo from '../components/CreatedInfo.vue'
 import { useAuthStore } from '@/stores/auth-store'
-import { apiMockService } from '@/services/api/mock/api-mock.service'
 import type { GetThreadByUuidResponse } from '@/services/api/protocols/thread-protocol'
+import { apiService } from '@/services/api/api.service'
 
 const authStore = useAuthStore()
 const route = useRoute()
@@ -17,11 +17,11 @@ let threadUuid = ''
 
 onMounted(async () => {
   threadUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
-  thread.value = await apiMockService.getThreadByUuid(threadUuid)
+  thread.value = await apiService.getThreadByUuid(threadUuid)
 })
 
 async function loadThread(): Promise<void> {
-  thread.value = await apiMockService.getThreadByUuid(threadUuid)
+  thread.value = await apiService.getThreadByUuid(threadUuid)
 }
 
 async function onCreateComment(input: string): Promise<void> {
@@ -29,7 +29,7 @@ async function onCreateComment(input: string): Promise<void> {
     throw new Error(`Can't create a comment when 'user' of 'authStore' is null.`)
   }
   const threadUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
-  await apiMockService.createComment(input, threadUuid, authStore.user)
+  await apiService.createComment(input, threadUuid, authStore.user)
 
   await loadThread()
 }

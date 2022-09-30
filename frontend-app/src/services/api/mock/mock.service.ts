@@ -35,7 +35,6 @@ class ApiMockService implements IApiService {
   async getUserByUuid(uuid: string): Promise<UserDTO> {
     const foundUser = this.users.find(u => u.uuid === uuid)
     if (foundUser == null) {
-      console.table(this.users)
       throw new Error(`No user found with uuid '${uuid}'`)
     }
     return foundUser
@@ -55,9 +54,7 @@ class ApiMockService implements IApiService {
   }
 
   async getTopicByUuid(uuid: string): Promise<GetTopicByUuidResponse> {
-    const foundTopic = { data: structuredClone(this.topics.data.find((t: { uuid: string }) => t.uuid === uuid)!) }
-    console.table(foundTopic.data.threads)
-    return foundTopic
+    return { data: structuredClone(this.topics.data.find((t: { uuid: string }) => t.uuid === uuid)!) }
   }
 
   async createTopic(title: string, description: string, user: UserDTO): Promise<CreateTopicResponse> {
@@ -74,7 +71,6 @@ class ApiMockService implements IApiService {
   }
 
   async getThreadByUuid(uuid: string): Promise<GetThreadByUuidResponse> {
-    console.log(`GetThread by uuid ${uuid}`)
     return { data: this.threads.data.find((thread: { uuid: string }) => thread.uuid === uuid)! }
   }
 
@@ -142,6 +138,13 @@ const mockUserResponse = [
     color_hex: '#3d315b',
     created_at: '2015-03-11 02:40:19',
   },
+  {
+    uuid: '97c85a5f-0b74-11ed-9873-08002771075f',
+    username: 'Wachtmeister Alois Dimpfelmoser',
+    email: 'alois.dimpfelmoser@polizei.de',
+    color_hex: '#444b6e',
+    created_at: '2018-02-03 15:09:59',
+  },
 ]
 
 const mockThreadsResponse: {
@@ -186,7 +189,7 @@ const mockThreadsResponse: {
             uuid: '97c85a5f-0b74-11ed-9873-08002771075f',
             username: 'Wachtmeister Alois Dimpfelmoser',
             color_hex: '#444b6e',
-            created_at: new Date().toString(),
+            created_at: '2018-02-03 15:09:59',
           },
         },
       ]
@@ -238,4 +241,4 @@ const mockTopicsResponse: {
 }
 
 
-export const apiMockService = new ApiMockService()
+export const mockService = new ApiMockService()

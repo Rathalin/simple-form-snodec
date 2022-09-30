@@ -3,12 +3,12 @@ import type { UserDTO } from '@/types/UserDTO'
 import { onMounted, ref } from 'vue'
 import UserThumbnail from '../components/UserThumbnail.vue'
 import UserLink from '../components/UserLink.vue'
-import { apiMockService } from '@/services/api/mock/api-mock.service';
+import { apiService } from '@/services/api/api.service';
 
 const users = ref<UserDTO[]>([])
 
 onMounted(async () => {
-  users.value = await apiMockService.getUsers()
+  users.value = await apiService.getUsers()
 })
 </script>
 

@@ -4,8 +4,8 @@ import { ref } from 'vue';
 
 
 const auth = useAuthStore()
-const emailInput = ref('daniel@flockert.at')
-const passwordInput = ref('asdf')
+const emailInput = ref('')
+const passwordInput = ref('')
 
 async function login() {
   const errors = await auth.login(emailInput.value, passwordInput.value)
@@ -17,7 +17,7 @@ async function login() {
 
 <template>
   <form class="login-wrapper flex-col no-wrap" @submit.prevent="login()">
-    <h1>Login (Demo)</h1>
+    <h1>Login</h1>
     <div class="flex-col">
       <div class="flex-col row">
         <label>Email</label>

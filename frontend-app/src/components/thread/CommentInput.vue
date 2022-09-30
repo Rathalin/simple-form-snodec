@@ -22,7 +22,7 @@ function submitInput(): void {
 <template>
   <div class="input-wrapper">
     <input v-model="inputText" @focus="inputFocused = true" @blur="inputFocused = false" @keydown.enter="submitInput"
-        :placeholder="props.placeholder" type="text"  name="new-comment" id="new-comment" autocomplete="off">
+      :placeholder="props.placeholder" type="text" name="new-comment" id="new-comment" autocomplete="off">
     <button v-if="inputFocused || inputText" :disabled="inputText.length === 0" @click="submitInput">
       {{ props.buttonLabel }}
     </button>
@@ -45,6 +45,13 @@ input {
   &:focus {
     border-color: var(--c-second-acc-1);
   }
+}
+
+.input-wrapper {
+  min-height: 43px;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 button {

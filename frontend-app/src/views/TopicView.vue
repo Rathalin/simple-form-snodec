@@ -8,8 +8,8 @@ import NoEntryMessage from '@/components/NoEntryMessage.vue'
 import CreatedInfo from '../components/CreatedInfo.vue'
 import { useAuthStore } from '@/stores/auth-store'
 import SingleInput from '@/components/SingleInput.vue'
-import { apiMockService } from '@/services/api/mock/api-mock.service'
 import type { GetTopicByUuidResponse } from '@/services/api/protocols/topic-protocol'
+import { apiService } from '@/services/api/api.service'
 
 const authStore = useAuthStore()
 const route = useRoute()
@@ -18,18 +18,18 @@ let topicUuid = ''
 
 onMounted(async () => {
   topicUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
-  topic.value = await apiMockService.getTopicByUuid(topicUuid)
+  topic.value = await apiService.getTopicByUuid(topicUuid)
 })
 
 async function loadTopic(): Promise<void> {
-  topic.value = await apiMockService.getTopicByUuid(topicUuid)
+  topic.value = await apiService.getTopicByUuid(topicUuid)
 }
 
 async function onCreateThread(input: string): Promise<void> {
   if (authStore.user == null) {
     throw new Error(`Can't create a thread when 'user' of 'authStore' is null.`)
   }
-  await apiMockService.createThread(input, topicUuid, authStore.user)
+  await apiService.createThread(input, topicUuid, authStore.user)
   await loadTopic()
 }
 </script>

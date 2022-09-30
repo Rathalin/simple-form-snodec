@@ -32,14 +32,11 @@ class RestService implements IApiService {
       }
     }
   }> {
-    // TODO
-    return {
-
-    }
+    throw new Error(`Not implemented on the backend yet.`)
   }
 
   async logout() {
-    //TODO
+    throw new Error(`Not implemented on the backend yet.`)
   }
 
 
@@ -125,4 +122,4 @@ class RestService implements IApiService {
 
 }
 
-export const apiService = new RestService()
+export const restService = new RestService()

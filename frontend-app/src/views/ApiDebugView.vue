@@ -28,7 +28,6 @@ async function onUrlInput(url: string) {
       throw new Error(`'Content-Type' of response was '${resContentType ?? 'null'}' instead of 'application/json'`)
     }
     response.data = await res.json()
-    console.log(response.data)
   } catch (error) {
     if (error instanceof Error) {
       response.error = error

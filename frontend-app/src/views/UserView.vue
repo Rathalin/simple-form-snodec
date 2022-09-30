@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 import BackButton from '@/components/BackButton.vue'
 import UserThumbnail from '@/components/UserThumbnail.vue'
 import type { UserDTO } from '@/types/UserDTO'
-import { apiMockService } from '@/services/api/mock/api-mock.service'
+import { apiService } from '@/services/api/api.service'
 
 const route = useRoute()
 const user = ref<UserDTO | null>(null)
@@ -16,7 +16,7 @@ const created_at = computed(() => {
 
 onMounted(async () => {
   const userUuid = Array.isArray(route.params.uuid) ? route.params.uuid[0] : route.params.uuid
-  user.value = await apiMockService.getUserByUuid(userUuid)
+  user.value = await apiService.getUserByUuid(userUuid)
 })
 </script>
 

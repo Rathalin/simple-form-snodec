@@ -36,4 +36,7 @@ sudo apt -y install nodejs
 
 After the installation of Node.js, navigate into the `frontend-app` folder and run `npm i` to install the node modules. To start the development server, execute `npm run dev`. With `npm run build` the app is build and written to the `/dist` folder.
 
-If you have any questions feel free to contact me at [S2110629004@fh-hagenberg.at](mailto:s2110629004@fh-hagenberg.at).
+
+## Project notes
+
+Since the backend was not finished the frontend uses a mock service to simulate a rest service. Change the variable `useSnodeC` in the file `frontend-app/src/services/api/api.service.ts` to `true`. If you have any questions feel free to contact me at [S2110629004@fh-hagenberg.at](mailto:s2110629004@fh-hagenberg.at).
