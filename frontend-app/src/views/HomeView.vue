@@ -4,8 +4,8 @@ import TopicItem from '@/components/TopicItem.vue'
 import NoEntryMessage from '@/components/NoEntryMessage.vue'
 import { useAuthStore } from '@/stores/auth-store'
 import TopicInput from '../components/TopicInput.vue'
-import type { GetTopicsResponse } from '@/services/api/topic-protocol'
-import { apiMockService } from '@/services/mock/api.mock.service'
+import { apiMockService } from '@/services/api/mock/api-mock.service'
+import type { GetTopicsResponse } from '@/services/api/protocols/topic-protocol'
 
 const authStore = useAuthStore()
 const topics = ref<GetTopicsResponse | null>(null)

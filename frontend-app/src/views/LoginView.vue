@@ -4,10 +4,11 @@ import { ref } from 'vue';
 
 
 const auth = useAuthStore()
-const emailInput = ref('gandalf@wizards.me')
+const emailInput = ref('daniel@flockert.at')
+const passwordInput = ref('asdf')
 
 async function login() {
-  const errors = await auth.demoLogin(emailInput.value)
+  const errors = await auth.login(emailInput.value, passwordInput.value)
   if (errors != null) {
     console.table(errors)
   }
@@ -24,7 +25,7 @@ async function login() {
       </div>
       <div class="flex-col row">
         <label>Password</label>
-        <input type="password" name="password" required disabled title="Disabled for demo login">
+        <input type="password" name="password" required v-model="passwordInput">
       </div>
       <div class="flex-row button-wrapper row">
         <button class="round" type="submit">Login</button>

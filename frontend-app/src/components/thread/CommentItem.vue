@@ -3,16 +3,14 @@ import { computed } from 'vue'
 import { getDateTimeFromString } from '@/util/date.util'
 import UserLink from '@/components/UserLink.vue'
 import UserThumbnail from '@/components/UserThumbnail.vue'
+import type { UserDTO } from '@/types/UserDTO';
 
 const props = defineProps<{
   comment: {
     uuid: string
     content: string
     created_at: string
-    user: {
-      uuid: string
-      username: string
-    }
+    user: UserDTO
   }
   threadOwner?: boolean
 }>()

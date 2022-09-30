@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { ref } from '@vue/reactivity'
-import { apiMockService } from '@/services/mock/api.mock.service'
 import ThreadItem from '@/components/ThreadItem.vue'
 import { useRoute } from 'vue-router'
 import BackButton from '@/components/BackButton.vue'
@@ -9,7 +8,8 @@ import NoEntryMessage from '@/components/NoEntryMessage.vue'
 import CreatedInfo from '../components/CreatedInfo.vue'
 import { useAuthStore } from '@/stores/auth-store'
 import SingleInput from '@/components/SingleInput.vue'
-import type { GetTopicByUuidResponse } from '@/services/rest/topic-protocol'
+import { apiMockService } from '@/services/api/mock/api-mock.service'
+import type { GetTopicByUuidResponse } from '@/services/api/protocols/topic-protocol'
 
 const authStore = useAuthStore()
 const route = useRoute()

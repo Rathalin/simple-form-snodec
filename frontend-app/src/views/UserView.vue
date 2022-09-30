@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { apiMockService } from '@/services/mock/api.mock.service'
 import { getDateFromString } from '@/util/date.util'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import BackButton from '@/components/BackButton.vue'
 import UserThumbnail from '@/components/UserThumbnail.vue'
 import type { UserDTO } from '@/types/UserDTO'
+import { apiMockService } from '@/services/api/mock/api-mock.service'
 
 const route = useRoute()
 const user = ref<UserDTO | null>(null)

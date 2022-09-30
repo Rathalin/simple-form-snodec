@@ -28,7 +28,7 @@ async function onMenuBlur(event: FocusEvent) {
 
 async function logout() {
   closeMenu()
-  await authStore.demoLogout()
+  await authStore.logout()
 }
 
 </script>

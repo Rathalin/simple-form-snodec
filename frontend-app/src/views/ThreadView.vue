@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { apiMockService } from '@/services/mock/api.mock.service'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import CommentItem from '@/components/thread/CommentItem.vue'
@@ -8,7 +7,8 @@ import CommentInput from '@/components/thread/CommentInput.vue'
 import CommentCounter from '@/components/thread/CommentCounter.vue'
 import CreatedInfo from '../components/CreatedInfo.vue'
 import { useAuthStore } from '@/stores/auth-store'
-import type { GetThreadByUuidResponse } from '@/services/api/thread-protocol'
+import { apiMockService } from '@/services/api/mock/api-mock.service'
+import type { GetThreadByUuidResponse } from '@/services/api/protocols/thread-protocol'
 
 const authStore = useAuthStore()
 const route = useRoute()

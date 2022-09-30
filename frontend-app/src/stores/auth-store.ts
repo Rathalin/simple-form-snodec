@@ -1,4 +1,4 @@
-import { apiMockService } from '@/services/api/mock/api.mock.service'
+import { apiMockService } from '@/services/api/mock/api-mock.service'
 import type { UserDTO } from '@/types/UserDTO'
 import { defineStore } from 'pinia'
 

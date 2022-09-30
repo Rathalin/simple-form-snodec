@@ -55,7 +55,9 @@ class ApiMockService implements IApiService {
   }
 
   async getTopicByUuid(uuid: string): Promise<GetTopicByUuidResponse> {
-    return { data: structuredClone(this.topics.data.find((t: { uuid: string }) => t.uuid === uuid)!) }
+    const foundTopic = { data: structuredClone(this.topics.data.find((t: { uuid: string }) => t.uuid === uuid)!) }
+    console.table(foundTopic.data.threads)
+    return foundTopic
   }
 
   async createTopic(title: string, description: string, user: UserDTO): Promise<CreateTopicResponse> {
@@ -72,6 +74,7 @@ class ApiMockService implements IApiService {
   }
 
   async getThreadByUuid(uuid: string): Promise<GetThreadByUuidResponse> {
+    console.log(`GetThread by uuid ${uuid}`)
     return { data: this.threads.data.find((thread: { uuid: string }) => thread.uuid === uuid)! }
   }
 
@@ -83,11 +86,12 @@ class ApiMockService implements IApiService {
       user: { ...user },
       topic: {
         uuid: topicUuid,
-        title: '',
+        title: this.topics.data.find(t => t.uuid === topicUuid)!.title,
       },
       comments: [],
     }
     this.threads.data.push(newThread)
+    this.topics.data.find(t => t.uuid === topicUuid)!.threads.push(newThread)
     return { data: newThread }
   }
 
